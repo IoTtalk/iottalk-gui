@@ -1,1 +1,3 @@
 *.py[co]
+app/static/vendor
+!app/static/vendor/package.json

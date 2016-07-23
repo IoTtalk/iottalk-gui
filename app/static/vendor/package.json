@@ -1,0 +1,6 @@
+{
+    "name": "iottalk-gui",
+    "dependencies":{
+        "semantic-ui": "latest"
+    }
+}
