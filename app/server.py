@@ -3,7 +3,7 @@ import logging
 import jinja2
 from tornado import ioloop
 from tornado.template import Loader
-from tornado.web import Application, RequestHandler
+from tornado.web import Application, RequestHandler, StaticFileHandler
 from tornado_jinja2 import Jinja2Loader
 
 import config
@@ -23,6 +23,7 @@ def mkapp():
     return Application(
         (
             (r'/', MainHandler),
+            (r'/static/(.*)', StaticFileHandler,),
         ),
         autoreload=config.DEBUG,
         debug=config.DEBUG,
