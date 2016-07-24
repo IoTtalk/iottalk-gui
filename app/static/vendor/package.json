@@ -2,6 +2,7 @@
     "name": "iottalk-gui",
     "dependencies":{
         "semantic-ui": "latest",
-        "vue": "1.x"
+        "vue": "1.x",
+        "vue-router": "latest"
     }
 }
