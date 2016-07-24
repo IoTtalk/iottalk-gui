@@ -3,6 +3,15 @@
 <head>
   <meta charset="UTF-8">
   <title>IoTtalk GUI | {% block title %}{% endblock title %}</title>
+
+  <link rel="stylesheet" href="{{ static_url('css/base.css') }}">
+
+  <!-- semantic-ui -->
+  <link rel="stylesheet" href="{{ static_url('vendor/semantic/dist/semantic.min.css') }}">
+  <script src="{{ static_url('vendor/semantic/dist/semantic.min.js') }}"></script>
+
+  {% block head %}
+  {% endblock head %}
 </head>
 <body>
   {% block body %}
@@ -13,7 +22,8 @@
     </header>
 
     <nav>
-    {% block nav% }
+    {% block nav %}
+    {% include "nav.html" %}
     {% endblock nav %}
     </nav>
 
