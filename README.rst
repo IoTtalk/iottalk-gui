@@ -16,13 +16,8 @@ We use ``tonado`` as our webapp framework and server::
 
 For the static contents, we use NPM's ``package.json``::
 
-    $ npm install -g gulp
-    $ npm install --prefix ./app/static/vendor
-
-Biuld semantic ui::
-
-    $ cd ./app/static/vendor/semantic
-    $ gulp build
+    $ cd app
+    $ npm install
 
 
 Devlopement Setup
@@ -31,6 +26,21 @@ Devlopement Setup
 ::
 
     $ python app/server.py
+
+
+Semantic UI
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+We use semantic ui and self-shipped it in the ``./app/static/semantic``.
+
+For developer note, following instruction is for building the semantic ui from
+source::
+
+    $ npm install -g gulp
+    $ npm install semantic-ui
+    $ cd semantic
+    $ gulp build
+    $ cp -r dist /path/to/app/static
 
 
 Production Setup
