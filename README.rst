@@ -23,9 +23,16 @@ For the static contents, we use NPM's ``package.json``::
 Devlopement Setup
 ----------------------------------------------------------------------
 
+We use ``webpack`` to build our boundled js file.
+
 ::
 
-    $ python app/server.py
+    $ cd app
+
+    $ npm install -g webpack
+    $ webpack  # or webpack --progress --colors --watch
+
+    $ python ./server.py
 
 
 Semantic UI
