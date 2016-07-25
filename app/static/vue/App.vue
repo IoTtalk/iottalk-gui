@@ -1,5 +1,6 @@
-<template>
-  <main-nav></main-nav>
+<template lang="jade">
+  main-nav
+  router-view
 </template>
 
 <script>
