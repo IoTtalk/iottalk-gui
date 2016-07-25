@@ -15,4 +15,7 @@ TEMPLATE_DIR = os.path.join(BASE_DIR, 'templates')
 
 
 # static contents
-STATIC_DIR = os.path.join(BASE_DIR, 'static')
+STATIC_DIRS = (
+    os.path.join(BASE_DIR, 'static'),
+    os.path.join(BASE_DIR, 'node_modules'),
+)
