@@ -1,8 +1,12 @@
 {
-    "name": "iottalk-gui",
-    "dependencies":{
-        "semantic-ui": "latest",
-        "vue": "1.x",
-        "vue-router": "latest"
-    }
+  "name": "iottalk-gui",
+  "dependencies": {
+    "vue": "1.x",
+    "vue-router": "latest"
+  },
+  "devDependencies": {
+    "semantic-ui": "latest",
+    "vue-loader": "^8.5.3",
+    "webpack": "^1.13.1"
+  }
 }
