@@ -19,23 +19,6 @@ class MainHandler(RequestHandler):
         self.render('index.html')
 
 
-class MultiStaticFileHandler(StaticFileHandler):
-    def initialize(self, *args, paths=None, **kwargs):
-        super(type(self), self).initialize(*args, **kwargs)
-        self.paths = paths if paths else [self.root]
-
-    # @coroutine
-    def get(self, *args, **kwargs):
-        path = args[0]
-        roots = [p for p in self.paths
-                    if os.path.exists(os.path.join(p, path))
-                ] or [self.root]
-
-        for root in roots:
-            self.root = root
-            return super(type(self), self).get(*args, **kwargs)
-
-
 def mkapp():
     jinja2_env = jinja2.Environment(
         loader=jinja2.FileSystemLoader(config.TEMPLATE_DIR),
@@ -47,16 +30,14 @@ def mkapp():
 
     if config.DEBUG:
         url_conf += (
-            (r'/static/(.*)', MultiStaticFileHandler),
+            (r'/static/(.*)', StaticFileHandler),
         )
 
     return Application(
         url_conf,
         autoreload=config.DEBUG,
         debug=config.DEBUG,
-        static_path=config.STATIC_DIRS[0],
-        static_handler_args={'paths': config.STATIC_DIRS},
-        static_handler_class=MultiStaticFileHandler,
+        static_path=config.STATIC_DIR,
         template_loader=Jinja2Loader(jinja2_env),
         template_path=config.TEMPLATE_DIR,
     )

@@ -31,6 +31,6 @@ module.exports = {
           jQuery: "jquery",
           "window.jQuery": "jquery",
           semantic: "./static/semantic/semantic.min.js",
-      })
+      }),
   ]
 }
