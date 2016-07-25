@@ -1,21 +1,17 @@
-<template>
-  <div class="ui olive huge inverted attached menu">
-    <div class="ui container">
-      <div class="header item">
-        IoTtalk
-      </div>
-      <a class="item"
-        v-link="{path: '/', activeClass: 'active', exact: true}">
-        <i class="home icon"></i>
-        Home
-      </a>
-      <a class="item"
-        v-link="{path: '/setting', activeClass: 'active'}">
-        <i class="setting icon"></i>
-        Setting
-      </a>
-    </div>
-  </div><!-- .menu -->
+<template lang="jade">
+  div.ui.olive.huge.inverted.attached.menu
+    div.ui.container
+      div.header.item IoTtalk
+      a.item(
+        v-link="{path: '/', activeClass: 'active', exact: true}"
+      )
+        i.home.icon
+        | Home
+      a.item(
+        v-link="{path: '/setting', activeClass: 'active'}"
+      )
+        i.setting.icon
+        | Setting
 </template>
 
 <script>

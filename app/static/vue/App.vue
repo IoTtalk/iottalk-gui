@@ -8,7 +8,7 @@ import MainNav from './MainNav.vue'
 export default {
   replace: false,
   components: {
-    MainNav
-  }
+    MainNav,
+  },
 }
 </script>

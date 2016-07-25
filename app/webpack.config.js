@@ -26,11 +26,11 @@ module.exports = {
     plugins: ['transform-runtime'],
   },
   plugins: [
-      new webpack.ProvidePlugin({
-          $: "jquery",
-          jQuery: "jquery",
-          "window.jQuery": "jquery",
-          semantic: "./static/semantic/semantic.min.js",
-      }),
+    new webpack.ProvidePlugin({
+      $: "jquery",
+      jQuery: "jquery",
+      "window.jQuery": "jquery",
+      semantic: "./static/semantic/semantic.min.js",
+    }),
   ]
 }
