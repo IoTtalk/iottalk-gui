@@ -1,27 +1,36 @@
+const webpack = require('webpack')
+
 module.exports = {
-	entry: './static/app.js',
+	entry: {
+    app: './static/app.js',
+  },
 	output: {
 		path: __dirname,
-		filename: './static/build.js'
+		filename: './static/build.js',
 	},
 	module: {
 		loaders: [
 			{
 				test: /\.vue$/,
-				loader: 'vue'
+				loader: 'vue',
 			},
 			{
-				// use babel-loader for *.js files
 				test: /\.js$/,
 				loader: 'babel',
-				// important: exclude files in node_modules
-				// otherwise it's going to be really slow!
-				exclude: /node_modules/
+				exclude: /node_modules/,
 			}
 		]
   },
   babel: {
     presets: ['es2015'],
-    plugins: ['transform-runtime']
-  }
+    plugins: ['transform-runtime'],
+  },
+  plugins: [
+      new webpack.ProvidePlugin({
+          $: "jquery",
+          jQuery: "jquery",
+          "window.jQuery": "jquery",
+          semantic: "./static/semantic/semantic.min.js",
+      })
+  ]
 }
