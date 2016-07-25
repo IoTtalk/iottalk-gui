@@ -16,7 +16,7 @@ log = logging.getLogger('iottalk-gui')
 
 class MainHandler(RequestHandler):
     def get(self):
-        self.render('index.html')
+        self.render('base.html')
 
 
 def mkapp():
