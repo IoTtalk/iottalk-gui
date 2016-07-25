@@ -1,3 +1,4 @@
 *.py[co]
-app/static/vendor
-!app/static/vendor/package.json
+app/node_modules
+app/semantic
+app/semantic.json
