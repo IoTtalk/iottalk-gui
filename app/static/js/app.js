@@ -1,9 +1,13 @@
+import Vue from 'vue'
+import VueRouter from 'vue-router'
+
+import App from './vue/App.vue'
+
 Vue.config.delimiters = ['[[', ']]']
 Vue.config.unsafeDelimiters = ['[[[', ']]]']
 
-
-const app = Vue.extend({})
+Vue.use(VueRouter)
 
 const router = new VueRouter()
 
-router.start(app, 'body')
+router.start(App, 'body')
