@@ -1,5 +1,5 @@
 *.py[co]
-app/static/js/build.js
+app/static/build.js
 app/node_modules
 app/semantic
 app/semantic.json
