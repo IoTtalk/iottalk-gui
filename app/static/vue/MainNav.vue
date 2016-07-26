@@ -3,7 +3,7 @@
     div.ui.container
       div.header.item IoTtalk
       a.item(
-        v-link="{path: '/', activeClass: 'active', exact: true}"
+        v-link="{name: 'home', activeClass: 'active', exact: true}"
       )
         i.home.icon
         | Home

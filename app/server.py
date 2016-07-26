@@ -25,7 +25,7 @@ def mkapp():
 
     url_conf = (
         (r'/', views.MainHandler),
-        (r'/proj/([\d]+)/?', views.ProjectHandler, dict(db=db)),
+        (r'/proj/([\d]*)/?', views.ProjectHandler, dict(db=db)),
     )
 
     if config.DEBUG:
