@@ -2,6 +2,7 @@
   "name": "iottalk-gui",
   "dependencies": {
     "vue": "1.x",
+    "vue-resource": "^0.9.3",
     "vue-router": "latest"
   },
   "devDependencies": {

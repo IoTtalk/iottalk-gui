@@ -1,5 +1,5 @@
 <template lang="jade">
-  div.ui.olive.huge.inverted.attached.menu
+  div#main-nav.ui.olive.huge.inverted.attached.menu
     div.ui.container
       div.header.item IoTtalk
       a.item(
@@ -20,7 +20,7 @@ export default {
 </script>
 
 <style scoped>
-.menu {
+#main-nav {
   margin-bottom: 20px;
 }
 </style>
