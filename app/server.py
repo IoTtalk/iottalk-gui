@@ -10,13 +10,9 @@ from tornado.web import Application, RequestHandler, StaticFileHandler
 from tornado_jinja2 import Jinja2Loader
 
 import config
+import views
 
 log = logging.getLogger('iottalk-gui')
-
-
-class MainHandler(RequestHandler):
-    def get(self):
-        self.render('base.html')
 
 
 def mkapp():
@@ -25,7 +21,8 @@ def mkapp():
     )
 
     url_conf = (
-        (r'/', MainHandler),
+        (r'/', views.MainHandler),
+        (r'/proj/([\d]+)', views.ProjectHandler),
     )
 
     if config.DEBUG:
