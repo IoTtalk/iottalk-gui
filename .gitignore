@@ -1,4 +1,5 @@
 *.py[co]
+db.sqlite3
 app/static/build.js
 app/node_modules
 app/semantic

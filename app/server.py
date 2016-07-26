@@ -11,18 +11,21 @@ from tornado_jinja2 import Jinja2Loader
 
 import config
 import views
+import models
 
 log = logging.getLogger('iottalk-gui')
 
 
 def mkapp():
+    db = models.db_init()
+
     jinja2_env = jinja2.Environment(
         loader=jinja2.FileSystemLoader(config.TEMPLATE_DIR),
     )
 
     url_conf = (
         (r'/', views.MainHandler),
-        (r'/proj/([\d]+)', views.ProjectHandler),
+        (r'/proj/([\d]+)/?', views.ProjectHandler, dict(db=db)),
     )
 
     if config.DEBUG:
