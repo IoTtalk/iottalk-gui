@@ -24,7 +24,7 @@ export default {
       ctx.moveTo(this.startx, this.starty);
       ctx.lineTo(this.x, this.y);
       ctx.lineWidth = 5;
-      ctx.strokeStyle = '#ddd';
+      ctx.strokeStyle = 'rgba(221, 221, 221, 1)';
       ctx.lineCap = 'round';
       ctx.stroke();
     },

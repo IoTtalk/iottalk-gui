@@ -11,10 +11,13 @@
       v-on:dragstart="onDragStart($index, $event)"
       v-on:dragend="onDragEnd"
       v-on:drop.prevent.stop="onDrop"
-      v-bind:class="{selected: (dragging == $index)}"
+      v-on:dragenter="onDragEnter($index, $event)"
+      v-on:dragleave="onDragLeave($index, $event)"
     )
-      i.tag.icon
-      | [[ feature | capitalize ]]
+      // v-bind:class="{selected: (dragging == $index)}"
+      span(style="z-index: -1: position: absolute")
+        i.tag.icon
+        | [[ feature | capitalize ]]
 </template>
 
 <script>
@@ -31,6 +34,7 @@ export default {
     onDragStart(index, ev) {
       console.log('drag start ' + index)
       this.dragging = index
+      ev.target.classList.add('selected')
 
       const canvas = document.createElementNS("http://www.w3.org/1999/xhtml","canvas");
 
@@ -46,12 +50,23 @@ export default {
     },
     onDragEnd(ev) {
       console.log('drag end')
-      this.dragging = -1
+      // this.dragging = -1
+      ev.target.classList.remove('selected')
     },
     onDrop(ev) {
       console.log('dropped')
       const data = ev.dataTransfer.getData('text')
       console.log(data)
+      this.dragging = -1
+      ev.target.classList.remove('selected')
+    },
+    onDragEnter(idx, ev) {
+      // this.dragging = idx;
+      ev.target.classList.add('selected')
+    },
+    onDragLeave(idx, ev) {
+      if (this.dragging !== idx)
+        ev.target.classList.remove('selected')
     },
   },
 }
