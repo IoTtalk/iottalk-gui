@@ -59,3 +59,8 @@ contents.
 Please adjest the ``app/config.py``.
 
 - ``DEBUG`` change into ``False``.
+
+Then, make a webpack production build::
+
+    $ cd app
+    $ webpack -p
