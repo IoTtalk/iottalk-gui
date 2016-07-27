@@ -1,5 +1,5 @@
 <template lang="jade">
-  div#main-nav.ui.olive.huge.inverted.attached.menu
+  div#main-nav.ui.red.huge.inverted.attached.menu
     div.ui.container
       div.header.item IoTtalk
       a.item(

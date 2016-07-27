@@ -59,7 +59,22 @@ class ProjectHandler(JSONHandler):
 
         self.write({
             'graphs': [
-                {'idf': 'meow'},
+                {
+                    'idf': [
+                        {'name': 'BetaCat', 'features': ['meow']}
+                    ],
+                    'odf': [
+                        {'name': 'AlphCat', 'features': ['meow']}
+                    ],
+                },
+                {
+                    'idf': [
+                        {'name': 'MorSensor', 'features': ['acce', 'temp']}
+                    ],
+                    'odf': [
+                        {'name': 'AlphCat', 'features': ['meow']}
+                    ],
+                },
             ],
             'pid': pid,
         })

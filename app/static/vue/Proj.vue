@@ -1,24 +1,31 @@
 <template lang="jade">
-  .ui.container
+  .ui.container(
+    v-on:dragover="allowDragOver"
+    v-on:drop.prevent.stop=""
+  )
     .header Project No. [[ pid ]]
-    .content
-      p(v-for="g in graphs") test [[ g | json ]]
-    .ui.padded.grid
-      .four.column.row
-        .left.floated.column
-          device
-        .right.floated.column
-          device
+
+    div(v-for="g in graphs")
+      graph(v-bind:conf="g")
+  
+    line-canvas
 </template>
 
 <script>
-import Device from './Device.vue'
+import Graph from './Graph.vue'
+import LineCanvas from './LineCanvas.vue'
 
 export default {
   data() {
     return {
       graphs: [],
     }
+  },
+  methods:{
+    allowDragOver(ev) {
+      console.log(`drag over! (${ev.pageX}, ${ev.pageY})`)
+      ev.dataTransfer.dropEffect = 'link'
+    },
   },
   computed: {
     pid() {
@@ -27,7 +34,6 @@ export default {
       this.$http.get(`/proj/${id}`).then(
         res => {
           const data = res.json()
-          console.log(data)
           this.graphs = data.graphs
         },
         res => {  // error
@@ -37,7 +43,8 @@ export default {
     },
   },
   components: {
-    Device,
+    Graph,
+    LineCanvas
   },
 }
 </script>
