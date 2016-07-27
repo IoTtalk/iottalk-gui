@@ -37,9 +37,10 @@ export default {
       ev.target.classList.add('selected')
 
       const canvas = document.createElementNS("http://www.w3.org/1999/xhtml","canvas");
+      canvas.width = canvas.height = 0;
 
       ev.dataTransfer.setData('text', 'XDD' + index)
-      ev.dataTransfer.setDragImage(canvas, 25, 25)
+      ev.dataTransfer.setDragImage(canvas, 0, 0)
 
       const pos = ev.target.getBoundingClientRect();
       this.$dispatch('feature-drag', {
