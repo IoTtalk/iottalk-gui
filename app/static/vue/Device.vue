@@ -1,11 +1,11 @@
 <template lang="jade">
   .ui.raised.segments.device
     .ui.segment
-      .header.center.aligned [[ model.name ]]
+      .ui.header.center.aligned [[ model.name ]]
     .ui.segment
       a
         i.configure.icon
-    .ui.center.aligned.feature.segment(
+    .ui.feature.center.aligned.segment(
       v-for="feature in model.features"
       draggable="true"
       v-on:dragstart="onDragStart($index, $event)"
@@ -15,8 +15,6 @@
     )
       i.tag.icon
       | [[ feature | capitalize ]]
-      // a.right.floated.conn-point
-      //   i.square.icon
 </template>
 
 <script>
@@ -38,6 +36,12 @@ export default {
 
       ev.dataTransfer.setData('text', 'XDD' + index)
       ev.dataTransfer.setDragImage(canvas, 25, 25)
+
+      const pos = ev.target.getBoundingClientRect();
+      this.$dispatch('feature-drag', {
+        x: pos.right + 8,
+        y: pos.y + pos.height / 2,
+      })
       return false
     },
     onDragEnd(ev) {
@@ -54,10 +58,6 @@ export default {
 </script>
 
 <style scoped>
-a.conn-point i{
-  position: absolute;
-  color: #acacac;
-}
 div.device div.selected{
   box-shadow: 0px 2px 5px #acacac inset;
 }
