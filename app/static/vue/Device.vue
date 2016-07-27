@@ -50,18 +50,19 @@ export default {
     },
     onDragEnd(ev) {
       console.log('drag end')
-      // this.dragging = -1
       ev.target.classList.remove('selected')
+
+      this.$dispatch('feature-dragend')
     },
     onDrop(ev) {
       console.log('dropped')
       const data = ev.dataTransfer.getData('text')
       console.log(data)
+
       this.dragging = -1
       ev.target.classList.remove('selected')
     },
     onDragEnter(idx, ev) {
-      // this.dragging = idx;
       ev.target.classList.add('selected')
     },
     onDragLeave(idx, ev) {

@@ -66,7 +66,10 @@ export default {
     'feature-drag': function(pos){
       this.startX = pos.x;
       this.startY = pos.y;
-    }
+    },
+    'feature-dragend': function(){
+      this.$broadcast('feature-dragend')
+    },
   },
 }
 </script>

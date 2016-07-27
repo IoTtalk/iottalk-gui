@@ -15,8 +15,9 @@ export default {
     'starty',
   ],
   methods: {
-    onDraw() {
+    onDraw(_alpha) {
       const ctx = this.ctx;
+      const alpha = _alpha || 1
 
       ctx.clearRect(0, 0, this.$el.width, this.$el.height)
       
@@ -24,9 +25,10 @@ export default {
       ctx.moveTo(this.startx, this.starty);
       ctx.lineTo(this.x, this.y);
       ctx.lineWidth = 5;
-      ctx.strokeStyle = 'rgba(221, 221, 221, 1)';
+      ctx.strokeStyle = `rgba(221, 221, 221, ${alpha})`;
       ctx.lineCap = 'round';
       ctx.stroke();
+      ctx.closePath();
     },
   },
   computed: {
@@ -44,6 +46,26 @@ export default {
   watch: {
     'x': 'onDraw',
     'y': 'onDraw',
+  },
+  events: {
+    'feature-dragend': function(){
+      const self = this;
+      
+      function fadeOut(_alpha) {
+        const alpha = _alpha - 0.1;
+
+        self.onDraw(alpha);
+
+        if (Math.floor(alpha * 10) == 0)
+          return;
+
+        setTimeout(() => {
+            fadeOut(alpha)
+        }, 100);
+      }
+
+      fadeOut(1);
+    },
   },
 }
 </script>
