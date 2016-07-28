@@ -1,10 +1,14 @@
 <template lang="jade">
-  div.proj-menu.ui.attached.secondary.menu
-    div.ui.container
-      div.item
-        div.ui.button
+  .proj-menu.ui.attached.secondary.menu
+    .ui.container
+      .item
+        .ui.button
           i.plus.icon
           | Model
+      .item
+        .ui.button
+          i.trash.icon
+          | Delete
 </template>
 
 <script>
