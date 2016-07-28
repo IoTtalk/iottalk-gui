@@ -10,8 +10,7 @@
         .ui.tiny.middle.aligned.progress
           .bar
       .two.wide.middle.aligned.column
-        button.ui.circular.massive.icon.button
-          i.code.icon
+        joint
       .three.wide.column
       .right.floated.column
         device(:model="conf.odf[0]")
@@ -19,6 +18,7 @@
 
 <script>
 import Device from './Device.vue'
+import Joint from './Joint.vue'
 
 export default {
   props: {
@@ -26,6 +26,7 @@ export default {
   },
   components: {
     Device,
+    Joint,
   },
   methods:{
   },
