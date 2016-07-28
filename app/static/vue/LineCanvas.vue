@@ -15,11 +15,11 @@ export default {
     'starty',
   ],
   methods: {
-    onDraw(_alpha) {
+    onDraw(_alpha=1) {
       const ctx = this.ctx;
-      const alpha = _alpha || 1
+      const alpha = _alpha;
 
-      ctx.clearRect(0, 0, this.$el.width, this.$el.height)
+      ctx.clearRect(0, 0, this.$el.width, this.$el.height);
       
       ctx.beginPath();
       ctx.moveTo(this.startx, this.starty);
