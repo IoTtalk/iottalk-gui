@@ -1,4 +1,6 @@
 <template lang="jade">
+  proj-nav
+
   .ui.container(
     v-on:dragover="allowDragOver"
     v-on:drop.prevent.stop=""
@@ -19,6 +21,7 @@
 <script>
 import Graph from './Graph.vue'
 import LineCanvas from './LineCanvas.vue'
+import ProjNav from './ProjNav.vue'
 
 export default {
   data() {
@@ -60,7 +63,8 @@ export default {
   },
   components: {
     Graph,
-    LineCanvas
+    LineCanvas,
+    ProjNav,
   },
   events: {
     'feature-drag': function(pos){

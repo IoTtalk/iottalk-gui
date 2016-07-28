@@ -19,7 +19,7 @@ export default {
 }
 </script>
 
-<style scoped>
+<style>
 #main-nav {
   margin-bottom: 20px;
 }
