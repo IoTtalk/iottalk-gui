@@ -1,21 +1,19 @@
 <template lang="jade">
-  proj-nav
+  // proj-nav
 
-  .ui.container(
-    v-on:dragover="allowDragOver"
-    v-on:drop.prevent.stop=""
-  )
-    .header Project No. [[ pid ]]
+  .ui.two.column.divided.grid.ghost
+    .stretched.row
+      .column
+      .column#ghost-ctrl-panel
 
-    div(v-for="g in graphs")
-      graph(v-bind:conf="g")
-  
-    line-canvas(
-      v-bind:x="pageX"
-      v-bind:y="pageY"
-      v-bind:startx="startX"
-      v-bind:starty="startY"
-    )
+  .ui.two.column.grid
+    .stretched.row
+      .column
+        p Project [[ pid ]]
+        div(v-for="g in graphs")
+          graph(v-bind:conf="g")
+      .column#ctrl-panel
+
 </template>
 
 <script>
@@ -27,24 +25,7 @@ export default {
   data() {
     return {
       graphs: [],
-
-      startX: -1,  // the start anchor
-      startY: -1,
-
-      pageX: -1,  // the mouse position
-      pageY: -1,
     }
-  },
-  methods:{
-    allowDragOver(ev) {
-      // console.log(`drag over! (${ev.pageX}, ${ev.pageY})`)
-
-      // binding for trigger canvas re-draw
-      this.pageX = ev.pageX
-      this.pageY = ev.pageY
-
-      ev.dataTransfer.dropEffect = 'link'
-    },
   },
   computed: {
     pid() {
@@ -66,16 +47,48 @@ export default {
     LineCanvas,
     ProjNav,
   },
-  events: {
-    'feature-drag': function(pos){
-      ({
-        x: this.startX,
-        y: this.startY
-       } = pos);
-    },
-    'feature-dragend': function(){
-      this.$broadcast('feature-dragend')
-    },
-  },
 }
 </script>
+
+<style>
+#ghost-ctrl-panel {
+  background-color: #f5f5f5;
+}
+
+html {
+  height: 100%;
+  position: relative;
+}
+
+body {
+  height: 100%;
+}
+</style>
+
+<style scoped>
+.ui.grid.ghost {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  bottom: 0;
+  margin: 0;
+  padding: 0;
+  padding-top: 40px;  /* preserve for menu */
+  z-index: -1;
+}
+
+.ui.grid.ghost > div.row {
+  margin: 0;
+  padding: 0;
+}
+
+.ui.grid.ghost > div.row > div.column {
+  padding-top: 20px;
+}
+
+.ui.grid {
+  padding-left: 10px;
+  padding-right: 10px;
+}
+</style>

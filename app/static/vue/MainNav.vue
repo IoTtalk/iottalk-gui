@@ -7,6 +7,9 @@
       )
         i.home.icon
         | Home
+      a.item
+        i.cube.icon
+        | Model
       a.item(
         v-link="{path: '/setting', activeClass: 'active'}"
       )
@@ -21,6 +24,6 @@ export default {
 
 <style>
 #main-nav {
-  margin-bottom: 20px;
+  margin-bottom: 0px;
 }
 </style>
