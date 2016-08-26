@@ -5,19 +5,10 @@
     .ui.segment
       a
         i.configure.icon
-    .ui.feature.center.aligned.segment(
+    .ui.feature.center.aligned.segment.feature-cell(
       v-for="feature in model.features"
-      draggable="true"
-      v-on:dragstart="onDragStart($index, $event)"
-      v-on:dragend="onDragEnd"
-      v-on:drop.prevent.stop="onDrop"
-      v-on:dragenter="onDragEnter($index, $event)"
-      v-on:dragleave="onDragLeave($index, $event)"
     )
-      // v-bind:class="{selected: (dragging == $index)}"
-      span(style="z-index: -1: position: absolute")
-        i.tag.icon
-        | [[ feature | capitalize ]]
+      .ui.raised.segment [[ feature | capitalize ]]
 </template>
 
 <script>
@@ -77,5 +68,9 @@ export default {
 <style scoped>
 div.device div.selected{
   box-shadow: 0px 2px 5px #acacac inset;
+}
+
+.feature-cell {
+  padding: 4px;
 }
 </style>
