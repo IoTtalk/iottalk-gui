@@ -1,10 +1,11 @@
 <template lang="jade">
   .ui.raised.segments.device
-    .ui.segment
-      .ui.header.center.aligned [[ model.name ]]
-    .ui.segment
-      a
-        i.configure.icon
+    .ui.horizontal.segments
+      .ui.center.aligned.segment.setting-cell
+        span
+          i.setting.icon
+      .ui.segment
+        .ui.header.center.aligned [[ model.name ]]
     .ui.feature.center.aligned.segment.feature-cell(
       v-for="feature in model.features"
     )
@@ -72,5 +73,14 @@ div.device div.selected{
 
 .feature-cell {
   padding: 4px;
+}
+
+.ui.segment.setting-cell {
+  padding-left: 3px;
+  padding-right: 0px;
+  padding-bottom: 0px;
+}
+.ui.segment.setting-cell i {
+  font-size: 2.5em;
 }
 </style>
