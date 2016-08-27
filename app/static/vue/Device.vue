@@ -2,14 +2,14 @@
   .ui.raised.segments.device
     .ui.horizontal.segments
       .ui.center.aligned.segment.setting-cell
-        span
+        a
           i.setting.icon
       .ui.segment
-        .ui.header.center.aligned [[ model.name ]]
-    .ui.feature.center.aligned.segment.feature-cell(
-      v-for="feature in model.features"
-    )
-      .ui.raised.segment [[ feature | capitalize ]]
+        .ui.header.center.aligned.model-name [[ model.name ]]
+    .ui.feature.center.aligned.segment.feature-cell
+      .ui.raised.segment(
+        v-for="feature in model.features"
+      ) [[ feature | capitalize ]]
 </template>
 
 <script>
@@ -23,45 +23,6 @@ export default {
     model: Object,
   },
   methods: {
-    onDragStart(index, ev) {
-      console.log('drag start ' + index)
-      this.dragging = index
-      ev.target.classList.add('selected')
-
-      const canvas = document.createElementNS("http://www.w3.org/1999/xhtml","canvas");
-      canvas.width = canvas.height = 0;
-
-      ev.dataTransfer.setData('text', 'XDD' + index)
-      ev.dataTransfer.setDragImage(canvas, 0, 0)
-
-      const pos = ev.target.getBoundingClientRect();
-      this.$dispatch('feature-drag', {
-        x: pos.right + 8,
-        y: pos.y + pos.height / 2,
-      })
-      return false
-    },
-    onDragEnd(ev) {
-      console.log('drag end')
-      ev.target.classList.remove('selected')
-
-      this.$dispatch('feature-dragend')
-    },
-    onDrop(ev) {
-      console.log('dropped')
-      const data = ev.dataTransfer.getData('text')
-      console.log(data)
-
-      this.dragging = -1
-      ev.target.classList.remove('selected')
-    },
-    onDragEnter(idx, ev) {
-      ev.target.classList.add('selected')
-    },
-    onDragLeave(idx, ev) {
-      if (this.dragging !== idx)
-        ev.target.classList.remove('selected')
-    },
   },
 }
 </script>
@@ -72,7 +33,13 @@ div.device div.selected{
 }
 
 .feature-cell {
-  padding: 4px;
+  padding: 6px;
+  padding-top: 0px;
+}
+
+.feature-cell > .segment {
+  margin: 0px;
+  margin-top: 6px;
 }
 
 .ui.segment.setting-cell {
@@ -80,7 +47,12 @@ div.device div.selected{
   padding-right: 0px;
   padding-bottom: 0px;
 }
+
 .ui.segment.setting-cell i {
   font-size: 2.5em;
+}
+
+.model-name {
+  color: #999;
 }
 </style>
