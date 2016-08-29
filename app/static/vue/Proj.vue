@@ -13,18 +13,27 @@
         div(v-for="g in graphs")
           graph(v-bind:conf="g")
       .column#ctrl-panel
+        model-conf(
+          v-if="ctrl_panel.type === 'model'"
+          v-bind:model="ctrl_panel.data"
+        )
 
 </template>
 
 <script>
 import Graph from './Graph.vue'
 import LineCanvas from './LineCanvas.vue'
+import ModelConf from './ModelConf.vue'
 import ProjNav from './ProjNav.vue'
 
 export default {
   data() {
     return {
       graphs: [],
+      ctrl_panel: {
+        type: null,
+        data: null,
+      },
     }
   },
   computed: {
@@ -45,7 +54,14 @@ export default {
   components: {
     Graph,
     LineCanvas,
+    ModelConf,
     ProjNav,
+  },
+  events: {
+    modelSelect(model) {
+      this.ctrl_panel.type = 'model';
+      this.ctrl_panel.data = model;
+    },
   },
 }
 </script>

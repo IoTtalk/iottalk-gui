@@ -1,9 +1,7 @@
 <template lang="jade">
   .content [[ conf | json ]]
   .ui.padded.grid
-    .four.column.row(
-      v-on:dragover.prevent=""
-    )
+    .four.column.row
       .left.floated.column
         device(:model="conf.idf[0]")
       .three.wide.column

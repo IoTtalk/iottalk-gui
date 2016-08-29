@@ -2,12 +2,14 @@
   .ui.raised.segments.device
     .ui.horizontal.segments
       .ui.center.aligned.segment.setting-cell
-        a
+        a(
+          v-on:click="model_select"
+        )
           i.setting.icon
       .ui.segment
         .ui.header.center.aligned.model-name [[ model.name ]]
     .ui.feature.center.aligned.segment.feature-cell
-      .ui.raised.segment(
+      .ui.segment(
         v-for="feature in model.features"
       ) [[ feature | capitalize ]]
 </template>
@@ -16,13 +18,15 @@
 export default {
   data() {
     return {
-      dragging: -1,
     }      
   },
   props: {
     model: Object,
   },
   methods: {
+      model_select() {
+        this.$dispatch('modelSelect', this.model);
+      },
   },
 }
 </script>
@@ -40,6 +44,11 @@ div.device div.selected{
 .feature-cell > .segment {
   margin: 0px;
   margin-top: 6px;
+}
+
+.feature-cell > .segment:hover {
+  cursor: pointer;
+  box-shadow: 0px 1px 3px #96B5FE;
 }
 
 .ui.segment.setting-cell {
