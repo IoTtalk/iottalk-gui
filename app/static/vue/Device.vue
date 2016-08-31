@@ -2,9 +2,7 @@
   .ui.raised.segments.device
     .ui.horizontal.segments
       .ui.center.aligned.segment.setting-cell
-        a(
-          v-on:click="model_select"
-        )
+        a(v-on:click="model_select")
           i.setting.icon
       .ui.segment
         .ui.header.center.aligned.model-name [[ model.name ]]
@@ -25,7 +23,7 @@ export default {
   },
   methods: {
       model_select() {
-        this.$dispatch('modelSelect', this.model);
+        this.$dispatch('modelSelect', this.model.model);
       },
   },
 }
