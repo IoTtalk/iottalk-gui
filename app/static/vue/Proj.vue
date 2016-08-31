@@ -7,7 +7,7 @@
       .column#ghost-ctrl-panel
 
   .ui.two.column.grid
-    .stretched.row
+    .row
       .column
         p Project [[ pid ]]
         div(v-for="g in graphs")
@@ -38,17 +38,45 @@ export default {
   },
   computed: {
     pid() {
-      const id = this.$route.params.pid
+      const id = this.$route.params.pid;
 
       this.$http.get(`/proj/${id}`).then(
         res => {
-          const data = res.json()
-          this.graphs = data.graphs
+          const data = res.json();
+
+          const bindModel = (graph) => {
+            /*
+              graph: {
+                'idf': [{
+                  'name': '...',
+                  'features': ['...'],
+                  'models': {...},
+                }],
+                'odf': ...
+              }
+             */
+            const _graph = Object.assign({}, graph);  // copy
+            const {idf, odf} = _graph;
+            const models = data.models;
+            
+            const link = (obj) => {
+              if (models[obj.name] === undefined)
+                return;
+              obj.model = models[obj.name];
+            };
+
+            idf.map(link);
+            odf.map(link);
+
+            return _graph;
+          };
+
+          this.graphs = data.graphs.map(bindModel);
         },
         res => {  // error
-          console.log('error: ' + res.json())
+          console.log('error: ' + res.json());
         })
-      return id
+      return id;
     },
   },
   components: {
