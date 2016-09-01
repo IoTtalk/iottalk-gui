@@ -57,9 +57,47 @@ class ProjectHandler(JSONHandler):
         if not pid:
             self.send_error(404, msg='unkown project id')
 
-        alpha_cat = {'name': 'AlphaCat', 'odf': ['meow']}
-        beta_cat = {'name': 'BetaCat', 'idf': ['meow']}
-        mor_sensor = {'name': 'MorSensor', 'idf': ['acce', 'temp']}
+
+        alpha_cat = {
+            'name': 'AlphaCat',
+            'odf': [
+                {
+                    'name': 'meow',
+                    'enable': True,
+                    'func': None
+                },
+            ],
+        }
+        beta_cat = {
+            'name': 'BetaCat',
+            'idf': [
+                {
+                    'name': 'meow',
+                    'enable': True,
+                    'func': None
+                },
+            ],
+        }
+        mor_sensor = {
+            'name': 'MorSensor',
+            'idf': [
+                {
+                    'name': 'acce',
+                    'enable': True,
+                    'func': None
+                },
+                {
+                    'name': 'temp',
+                    'enable': True,
+                    'func': None
+                },
+                {
+                    'name': 'color',
+                    'enable': False,
+                    'func': None
+                },
+            ],
+        }
 
         self.write({
             'graphs': [

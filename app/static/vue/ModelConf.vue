@@ -13,9 +13,12 @@
       tr(v-for="feature in model[df.key]")
         td.collapsing
           .ui.fitted.slider.checkbox
-            input(type='checkbox')
+            input(
+              type='checkbox'
+              v-model='feature.enable'
+            )
             label
-        td [[ feature | capitalize ]]
+        td [[ feature.name | capitalize ]]
 </template>
 
 <script>
