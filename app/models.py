@@ -28,8 +28,8 @@ def define_legacy_entities(db):
         _table_ = 'DeviceFeature'
 
         id = pony.PrimaryKey(int, auto=True, column='df_id')
-        name = pony.Required(str, max_length=255, column='df_name')
-        type = pony.Required(str, max_length=6, column='df_type',
+        name = pony.Required(str, 255, column='df_name')
+        type = pony.Required(str, 6, column='df_type',
                              py_check=ck_enum(const.FEATURE_TYPES))
         category = pony.Required(str, max_length=7, column='df_category',
                                  py_check=ck_enum(const.FEATURE_CATES))
@@ -41,9 +41,9 @@ def define_legacy_entities(db):
     class DevModel(db.Entity):
         _table_ = 'DeviceModel'
 
-        dm_id = pony.IntegerField(primary_key=True)
-        dm_name = pony.CharField(max_length=255)
-        dm_type = pony.CharField(max_length=10)
+        id = pony.PrimaryKey(int, auto=True, column='dm_id')
+        name = pony.Required(str, 255, column='dm_name')
+        # type = pony.CharField(max_length=10, column='dm_type')
 
     class DevObject(db.Entity):
         _table_ = 'DeviceObject'
