@@ -38,7 +38,7 @@ def define_legacy_entities(db):
 
         df_object = pony.Set(lambda: DFObject)
 
-    class Devicemodel(db.Entity):
+    class DevModel(db.Entity):
         _table_ = 'DeviceModel'
 
         dm_id = pony.IntegerField(primary_key=True)
@@ -49,7 +49,7 @@ def define_legacy_entities(db):
         _table_ = 'DeviceObject'
 
         id = pony.PrimaryKey(int, auto=True, column='do_id')
-        dm_id = pony.ForeignKey(Devicemodel, pony.DO_NOTHING)
+        dm_id = pony.ForeignKey(DevModel, pony.DO_NOTHING)
         p_id = pony.IntegerField()
         do_idx = pony.IntegerField()
         d_id = pony.ForeignKey(Device, pony.DO_NOTHING, blank=True, null=True)
@@ -102,7 +102,7 @@ def define_legacy_entities(db):
         _table_ = 'DM_DF'
 
         mf_id = pony.IntegerField(primary_key=True)
-        dm_id = pony.ForeignKey('Devicemodel', pony.DO_NOTHING)
+        dm_id = pony.ForeignKey('DevModel', pony.DO_NOTHING)
         df_id = pony.ForeignKey('DevFeature', pony.DO_NOTHING)
 
     class Device(db.Entity):
@@ -114,7 +114,7 @@ def define_legacy_entities(db):
         d_name = pony.CharField(max_length=255)
         status = pony.CharField(max_length=7)
         u_id = pony.ForeignKey('User', pony.DO_NOTHING, blank=True, null=True)
-        dm_id = pony.ForeignKey('Devicemodel', pony.DO_NOTHING)
+        dm_id = pony.ForeignKey('DevModel', pony.DO_NOTHING)
         is_sim = pony.BooleanField()
 
     class Function(db.Entity):
