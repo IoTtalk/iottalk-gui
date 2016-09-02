@@ -1,10 +1,23 @@
 import logging
 
+from functools import partial
+from operator import contains
+
 from pony import orm as pony
 
 import config
+import const
 
 log = logging.getLogger('iottalk-gui')
+
+
+def ck_enum(enum):
+    '''
+    :param enum: iterable for check containing or not
+
+    :return: a partial function will be used by pony ``py_check``
+    '''
+    return partial(contains, enum)
 
 
 def define_legacy_entities(db):
@@ -14,19 +27,21 @@ def define_legacy_entities(db):
     class DeviceFeature(db.Entity):
         _table_ = 'DeviceFeature'
 
-        df_id = pony.IntegerField(primary_key=True)
-        df_name = pony.CharField(max_length=255)
-        df_type = pony.CharField(max_length=6)
-        df_category = pony.CharField(max_length=7)
-        param_no = pony.IntegerField()
-        comment = pony.TextField()
+        id = pony.PrimaryKey(int, auto=True, column='df_id')
+        name = pony.Required(str, max_length=255, column='df_name')
+        type = pony.Required(str, max_length=6, column='df_type',
+                             py_check=ck_enum(const.FEATURE_TYPES))
+        category = pony.Required(str, max_length=7, column='df_category',
+                                 py_check=ck_enum(const.FEATURE_CATES))
+        # param_no = pony.Required(int)
+        comment = pony.Optional(pony.LongStr)
 
         df_object = pony.Set(lambda: DFObject)
 
     class DevObject(db.Entity):
         _table_ = 'DeviceObject'
 
-        do_id = pony.IntegerField(primary_key=True)
+        do_id = pony.PrimaryKey(int, auto=True)
         dm_id = pony.ForeignKey(Devicemodel, pony.DO_NOTHING)
         p_id = pony.IntegerField()
         do_idx = pony.IntegerField()
@@ -35,6 +50,9 @@ def define_legacy_entities(db):
         df_object = pony.Set(lambda: DFObject)
 
     class DFObject(db.Entity):
+	'''
+        FIXME: pony orm provide many-to-many mechanism already
+        '''
         _table_ = 'DFObject'
 
         id = pony.PrimaryKey(int, auto=True, column='dfo_id')
