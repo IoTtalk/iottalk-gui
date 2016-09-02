@@ -11,12 +11,35 @@ def define_legacy_entities(db):
     '''
     FIXME: Remove this function
     '''
+    class DeviceFeature(db.Entity):
+        _table_ = 'DeviceFeature'
+
+        df_id = pony.IntegerField(primary_key=True)
+        df_name = pony.CharField(max_length=255)
+        df_type = pony.CharField(max_length=6)
+        df_category = pony.CharField(max_length=7)
+        param_no = pony.IntegerField()
+        comment = pony.TextField()
+
+        df_object = pony.Set(lambda: DFObject)
+
+    class DevObject(db.Entity):
+        _table_ = 'DeviceObject'
+
+        do_id = pony.IntegerField(primary_key=True)
+        dm_id = pony.ForeignKey(Devicemodel, pony.DO_NOTHING)
+        p_id = pony.IntegerField()
+        do_idx = pony.IntegerField()
+        d_id = pony.ForeignKey(Device, pony.DO_NOTHING, blank=True, null=True)
+
+        df_object = pony.Set(lambda: DFObject)
+
     class DFObject(db.Entity):
         _table_ = 'DFObject'
 
-        dfo_id = pony.IntegerField(primary_key=True)
-        do_id = pony.ForeignKey('DeviceObject', pony.DO_NOTHING)
-        dfo_id = pony.ForeignKey('Devicefeature', pony.DO_NOTHING)
+        id = pony.PrimaryKey(int, auto=True, column='dfo_id')
+        dev_obj = pony.Required(DevObject, column='do_id')
+        feature = pony.Required(DeviceFeature, column='dfo_id')
 
     class DfModule(db.Entity):
         _table_ = 'DF_Module'
@@ -39,7 +62,7 @@ def define_legacy_entities(db):
         _table_ = 'DF_Parameter'
 
         dfp_id = pony.IntegerField(primary_key=True)
-        df_id = pony.ForeignKey('Devicefeature', pony.DO_NOTHING, blank=True, null=True)
+        df_id = pony.ForeignKey('DeviceFeature', pony.DO_NOTHING, blank=True, null=True)
         mf_id = pony.ForeignKey('DmDf', pony.DO_NOTHING, blank=True, null=True)
         param_i = pony.IntegerField()
         param_type = pony.CharField(max_length=7)
@@ -55,7 +78,7 @@ def define_legacy_entities(db):
 
         mf_id = pony.IntegerField(primary_key=True)
         dm_id = pony.ForeignKey('Devicemodel', pony.DO_NOTHING)
-        df_id = pony.ForeignKey('Devicefeature', pony.DO_NOTHING)
+        df_id = pony.ForeignKey('DeviceFeature', pony.DO_NOTHING)
 
     class Device(db.Entity):
         _table_ = 'Device'
@@ -69,31 +92,12 @@ def define_legacy_entities(db):
         dm_id = pony.ForeignKey('Devicemodel', pony.DO_NOTHING)
         is_sim = pony.BooleanField()
 
-    class Devicefeature(db.Entity):
-        _table_ = 'DeviceFeature'
-
-        df_id = pony.IntegerField(primary_key=True)
-        df_name = pony.CharField(max_length=255)
-        df_type = pony.CharField(max_length=6)
-        df_category = pony.CharField(max_length=7)
-        param_no = pony.IntegerField()
-        comment = pony.TextField()
-
     class Devicemodel(db.Entity):
         _table_ = 'DeviceModel'
 
         dm_id = pony.IntegerField(primary_key=True)
         dm_name = pony.CharField(max_length=255)
         dm_type = pony.CharField(max_length=10)
-
-    class DeviceObject(db.Entity):
-        _table_ = 'DeviceObject'
-
-        do_id = pony.IntegerField(primary_key=True)
-        dm_id = pony.ForeignKey(Devicemodel, pony.DO_NOTHING)
-        p_id = pony.IntegerField()
-        do_idx = pony.IntegerField()
-        d_id = pony.ForeignKey(Device, pony.DO_NOTHING, blank=True, null=True)
 
     class Function(db.Entity):
         _table_ = 'Function'
@@ -107,7 +111,7 @@ def define_legacy_entities(db):
         fnsdf_id = pony.IntegerField(primary_key=True)
         fn_id = pony.ForeignKey(Function, pony.DO_NOTHING)
         u_id = pony.ForeignKey('User', pony.DO_NOTHING, blank=True, null=True)
-        df_id = pony.ForeignKey(Devicefeature, pony.DO_NOTHING, blank=True, null=True)
+        df_id = pony.ForeignKey(DeviceFeature, pony.DO_NOTHING, blank=True, null=True)
         display = pony.BooleanField()
 
     class Functionversion(db.Entity):
@@ -155,7 +159,7 @@ def define_legacy_entities(db):
         _table_ = 'SimulatedIDF'
 
         d_id = pony.ForeignKey(Device, pony.DO_NOTHING, primary_key=True)
-        df_id = pony.ForeignKey(Devicefeature, pony.DO_NOTHING, primary_key=True)
+        df_id = pony.ForeignKey(DeviceFeature, pony.DO_NOTHING, primary_key=True)
         execution_mode = pony.CharField(max_length=8)
         data = pony.TextField(blank=True, null=True)
 
@@ -166,8 +170,8 @@ def define_legacy_entities(db):
         _table_ = 'User'
 
         id = pony.PrimaryKey(int, auto=True, column='u_id')
-        name = pony.Required(str, max_length=255, column='u_name')
-        passwd = pony.Required(str, max_length=255)
+        name = pony.Required(str, 255, column='u_name')
+        passwd = pony.Required(str, 255)
 
 
 def define_entities(db):
