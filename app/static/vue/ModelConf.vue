@@ -35,7 +35,6 @@ export default {
     model: Object,
   },
   methods: {
-           
   },
 };
 </script>

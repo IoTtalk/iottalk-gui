@@ -1,3 +1,5 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,12 +7,12 @@
   <title>IoTtalk GUI</title>
 
   <!-- semantic-ui -->
-  <link rel="stylesheet" href="{{ static_url('semantic/semantic.min.css') }}">
+  <link rel="stylesheet" href="{% static 'semantic/semantic.min.css' %}">
 
   {% block head %}
   {% endblock head %}
 </head>
 <body>
-  <script src="{{ static_url('build.js') }}"></script>
+  <script src="{% static 'build.js' %}"></script>
 </body>
 </html>

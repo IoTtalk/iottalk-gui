@@ -40,7 +40,7 @@ export default {
     pid() {
       const id = this.$route.params.pid;
 
-      this.$http.get(`/proj/${id}`).then(
+      this.$http.get(`/proj/${id}/`).then(
         res => {
           const data = res.json();
 

@@ -1,4 +1,2 @@
-tornado
-tornado-jinja2
-jinja2
-pony
+django~=1.10
+django-braces
