@@ -9,9 +9,22 @@ class DevModel(models.Model):
     Device Model
     '''
     name = models.CharField(max_length=255)
+    desc = models.TextField(null=True, blank=True)  # description
 
     def __str__(self):
         return '{} {}'.format(self.id, self.name)
+
+
+class ModelTag(models.Model):
+    '''
+    Device Model Tag
+
+    for searching, categorizing ... etc.
+    '''
+    name = models.CharField(max_length=255)
+
+    def __str__(self):
+        return self.name
 
 
 class Dev(models.Model):
@@ -44,7 +57,7 @@ class Feature(models.Model):
         ('o', 'output'),)
 
     cate = models.ForeignKey(Category)
-    desc = models.TextField()  # description
+    desc = models.TextField(null=True, blank=True)  # description
     func = models.ForeignKey(FeatureFunc)
     mod = models.ManyToManyField(DevModel)
     # to show enabled/disabled on instance
