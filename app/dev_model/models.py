@@ -25,6 +25,16 @@ class Dev(models.Model):
         return '{} Model {}'.format(self.id, self.mod.name)
 
 
+class Category(models.Model):
+    '''
+    Feature Category
+    '''
+    name = models.CharField(max_length=255)
+
+    def __str__(self):
+        return '{}'.format(self.name)
+
+
 class Feature(models.Model):
     '''
     Device Feature
@@ -33,7 +43,7 @@ class Feature(models.Model):
         ('i', 'input'),
         ('o', 'output'),)
 
-    cate = models.CharField(max_length=255)  # category
+    cate = models.ForeignKey(Category)
     desc = models.TextField()  # description
     func = models.ForeignKey(FeatureFunc)
     mod = models.ManyToManyField(DevModel)
