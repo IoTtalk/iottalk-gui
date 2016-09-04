@@ -29,10 +29,19 @@ class ModelTag(models.Model):
 
 class Dev(models.Model):
     '''
-    The instance of a Device Model
+    The instance of a Device Model.
+
+    Each instance will be mapped to a card on GUI in graph.
+    If user create the instance with both IDF and ODF enabled,
+    we will create two ``Dev`` and distinguish them via ``type`` field.
     '''
+    TYPE_CHOICES = (
+        ('i', 'input'),
+        ('o', 'output'),)
+
     graph = models.ForeignKey(Graph)
     mod = models.ForeignKey(DevModel)
+    type = models.CharField(max_length=1, choices=TYPE_CHOICES)
 
     def __str__(self):
         return '{} Model {}'.format(self.id, self.mod.name)
