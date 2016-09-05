@@ -67,7 +67,7 @@ class Feature(models.Model):
 
     cate = models.ForeignKey(Category)
     desc = models.TextField(null=True, blank=True)  # description
-    func = models.ForeignKey(FeatureFunc)
+    func = models.ForeignKey(FeatureFunc, null=True, blank=True)
     mod = models.ManyToManyField(DevModel)
     # to show enabled/disabled on instance
     dev = models.ManyToManyField(Dev)
