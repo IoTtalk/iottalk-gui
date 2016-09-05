@@ -12,7 +12,7 @@ class DevModel(models.Model):
     desc = models.TextField(null=True, blank=True)  # description
 
     def __str__(self):
-        return '{} {}'.format(self.id, self.name)
+        return self.name
 
 
 class ModelTag(models.Model):
@@ -44,7 +44,7 @@ class Dev(models.Model):
     type = models.CharField(max_length=1, choices=TYPE_CHOICES)
 
     def __str__(self):
-        return '{} Model {}'.format(self.id, self.mod.name)
+        return self.mod.name
 
 
 class Category(models.Model):
@@ -54,7 +54,7 @@ class Category(models.Model):
     name = models.CharField(max_length=255)
 
     def __str__(self):
-        return '{}'.format(self.name)
+        return self.name
 
 
 class Feature(models.Model):
