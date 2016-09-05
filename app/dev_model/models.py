@@ -22,6 +22,7 @@ class ModelTag(models.Model):
     for searching, categorizing ... etc.
     '''
     name = models.CharField(max_length=255)
+    mod = models.ManyToManyField(DevModel, blank=True)
 
     def __str__(self):
         return self.name
@@ -72,7 +73,7 @@ class Feature(models.Model):
     func = models.ForeignKey(FeatureFunc, null=True, blank=True)
     mod = models.ManyToManyField(DevModel)
     # to show enabled/disabled on instance
-    dev = models.ManyToManyField(Dev)
+    dev = models.ManyToManyField(Dev, blank=True)
 
     def __str__(self):
         return self.name
