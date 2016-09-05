@@ -75,4 +75,4 @@ class Feature(models.Model):
     dev = models.ManyToManyField(Dev)
 
     def __str__(self):
-        return '{}df {}'.format(self.type, self.name)
+        return self.name
