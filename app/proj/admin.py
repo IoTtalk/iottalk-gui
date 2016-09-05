@@ -1,3 +1,13 @@
 from django.contrib import admin
 
-# Register your models here.
+from proj.models import Graph, Project
+
+
+@admin.register(Graph)
+class GraphAdmin(admin.ModelAdmin):
+    pass
+
+
+@admin.register(Project)
+class ProjectAdmin(admin.ModelAdmin):
+    pass
