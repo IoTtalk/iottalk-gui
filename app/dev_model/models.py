@@ -65,14 +65,14 @@ class Feature(models.Model):
         ('i', 'input'),
         ('o', 'output'),)
 
+    name = models.CharField(max_length=255)
+    type = models.CharField(max_length=1, choices=TYPE_CHOICES)
     cate = models.ForeignKey(Category)
     desc = models.TextField(null=True, blank=True)  # description
     func = models.ForeignKey(FeatureFunc, null=True, blank=True)
     mod = models.ManyToManyField(DevModel)
     # to show enabled/disabled on instance
     dev = models.ManyToManyField(Dev)
-    name = models.CharField(max_length=255)
-    type = models.CharField(max_length=1, choices=TYPE_CHOICES)
 
     def __str__(self):
         return '{}df {}'.format(self.type, self.name)
