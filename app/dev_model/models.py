@@ -14,6 +14,15 @@ class DevModel(models.Model):
     def __str__(self):
         return self.name
 
+    @property
+    def json(self):
+        return {
+            'pk': self.id,
+            'name': self.name,
+            'desc': self.desc,
+            'tags': tuple(self.modeltag_set.all()),
+        }
+
 
 class ModelTag(models.Model):
     '''
