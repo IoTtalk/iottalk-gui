@@ -18,9 +18,11 @@ from django.contrib import admin
 
 from iottalk.views import index
 from proj import urls as proj
+from dev_model import urls as dev_model
 
 urlpatterns = [
     url(r'^$', index, name='index'),
     url(r'^admin/', admin.site.urls),
-    url(r'^proj/', include(proj, namespace='proj'))
+    url(r'^proj/', include(proj, namespace='proj')),
+    url(r'^mod/', include(dev_model, namespace='mod')),
 ]
