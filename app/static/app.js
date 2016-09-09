@@ -6,23 +6,24 @@ import App from './vue/App.vue'
 import Home from './vue/Home.vue'
 import Proj from './vue/Proj.vue'
 
-Vue.config.delimiters = ['[[', ']]']
-Vue.config.unsafeDelimiters = ['[[[', ']]]']
+Vue.config.delimiters = ['[[', ']]'];
+Vue.config.unsafeDelimiters = ['[[[', ']]]'];
 
-Vue.use(VueRouter)
-Vue.use(VueResource)
+Vue.use(VueRouter);
+Vue.use(VueResource);
 
-const router = new VueRouter()
+const router = new VueRouter();
+const app = Vue.extend(App);
 
 router.map({
   '/': {
     name: 'home',
-    component: Home,
+    component: Vue.component('home', Home),
   },
   '/proj/:pid': {
     name: 'proj',
-    component: Proj,
+    component: Vue.component('proj', Proj),
   },
 })
 
-router.start(App, 'body')
+router.start(app, 'body');
