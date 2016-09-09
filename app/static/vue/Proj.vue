@@ -17,12 +17,17 @@
           v-if="ctrl_panel.type === 'model'"
           v-bind:model="ctrl_panel.data"
         )
+        model-add(
+          v-if="ctrl_panel.type === 'model_add'"
+          v-bind:model="ctrl_panel.data"
+        )
 
 </template>
 
 <script>
 import Graph from './Graph.vue'
 import LineCanvas from './LineCanvas.vue'
+import ModelAdd from './ModelAdd.vue'
 import ModelConf from './ModelConf.vue'
 import ProjNav from './ProjNav.vue'
 
@@ -82,12 +87,18 @@ export default {
   components: {
     Graph,
     LineCanvas,
+    ModelAdd,
     ModelConf,
     ProjNav,
   },
   events: {
     modelSelect(model) {
       this.ctrl_panel.type = 'model';
+      this.ctrl_panel.data = model;
+    },
+    'model-add': function(model){
+      console.log('got')
+      this.ctrl_panel.type = 'model_add';
       this.ctrl_panel.data = model;
     },
   },
