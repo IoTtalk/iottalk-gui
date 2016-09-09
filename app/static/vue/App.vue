@@ -11,5 +11,12 @@ export default {
   components: {
     MainNav,
   },
+  methods: {
+  },
+  events: {
+    'model-add': function(model) {
+      this.$broadcast('model-add', model);
+    },
+  },
 }
 </script>

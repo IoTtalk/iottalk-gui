@@ -97,7 +97,6 @@ export default {
       this.ctrl_panel.data = model;
     },
     'model-add': function(model){
-      console.log('got')
       this.ctrl_panel.type = 'model_add';
       this.ctrl_panel.data = model;
     },

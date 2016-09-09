@@ -14,8 +14,8 @@
         td.collapsing
           .ui.fitted.slider.checkbox
             input(
-              type='checkbox'
-              v-model='feature.enable'
+              type="checkbox"
+              v-model="feature.enable"
             )
             label
         td [[ feature.name | capitalize ]]

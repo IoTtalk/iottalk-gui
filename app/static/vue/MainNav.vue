@@ -14,7 +14,7 @@
         .menu
           .item(
             v-for="model in models"
-            v-on:click="onModelSelect(model)"
+            v-on:click="onModelAdd(model)"
           ) [[ model.name ]]
       a.item(
         v-link="{path: '/setting', activeClass: 'active'}"
@@ -43,8 +43,8 @@ export default {
         }
       );
     },
-    onModelSelect(model) {
-      console.log(model);
+    onModelAdd(model) {
+      this.$dispatch('model-add', model);
     },
   },
   ready() {

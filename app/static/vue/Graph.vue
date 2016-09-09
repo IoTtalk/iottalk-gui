@@ -26,7 +26,7 @@ export default {
     Device,
     Joint,
   },
-  methods:{
+  methods: {
   },
 }
 </script>
