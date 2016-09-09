@@ -11,7 +11,6 @@ class DevModelListView(JSONResponseMixin, ListView):
 
     def get(self, request):
         context = self.get_context_data()
-        print(context[0])
         return self.render_json_response(context)
 
     def get_context_data(self):

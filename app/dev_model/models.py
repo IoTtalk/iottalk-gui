@@ -16,12 +16,17 @@ class DevModel(models.Model):
 
     @property
     def json(self):
-        return {
+        payload = {
             'pk': self.id,
             'name': self.name,
             'desc': self.desc,
-            'tags': tuple(self.modeltag_set.all()),
+            'tags': tuple(obj.json for obj in self.modeltag_set.all()),
+            'idf': tuple(
+                obj.json for obj in self.feature_set.filter(type='i')),
+            'odf': tuple(
+                obj.json for obj in self.feature_set.filter(type='o')),
         }
+        return payload
 
 
 class ModelTag(models.Model):
@@ -34,6 +39,10 @@ class ModelTag(models.Model):
     mod = models.ManyToManyField(DevModel, blank=True)
 
     def __str__(self):
+        return self.name
+
+    @property
+    def json(self):
         return self.name
 
 
@@ -66,6 +75,10 @@ class Category(models.Model):
     def __str__(self):
         return self.name
 
+    @property
+    def json(self):
+        return self.name
+
 
 class Feature(models.Model):
     '''
@@ -86,3 +99,12 @@ class Feature(models.Model):
 
     def __str__(self):
         return self.name
+
+    @property
+    def json(self):
+        return {
+            'pk': self.id,
+            'name': self.name,
+            'type': self.type,
+            'desc': self.desc,
+        }
