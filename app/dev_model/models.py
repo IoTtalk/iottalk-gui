@@ -72,8 +72,9 @@ class Dev(models.Model):
 
         return {
             'pk': self.id,
+            'name': self.mod.name,
             'graph': self.graph.id,
-            'model': self.mod.id,
+            'model': self.mod.json,
             'type': type_dict[self.type],
             'features': tuple(f.json for f in self.feature_set.all()),
         }
