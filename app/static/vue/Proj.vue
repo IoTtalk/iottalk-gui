@@ -20,6 +20,7 @@
         model-add(
           v-if="ctrl_panel.type === 'model_add'"
           v-bind:model="ctrl_panel.data"
+          v-bind:graphs="graphs"
         )
 
 </template>
