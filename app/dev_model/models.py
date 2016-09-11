@@ -53,6 +53,8 @@ class Dev(models.Model):
     Each instance will be mapped to a card on GUI in graph.
     If user create the instance with both IDF and ODF enabled,
     we will create two ``Dev`` and distinguish them via ``type`` field.
+
+    :param pair: the pair device which own opposite ``type``.
     '''
     TYPE_CHOICES = (
         ('i', 'input'),
@@ -62,6 +64,7 @@ class Dev(models.Model):
     graph = models.ForeignKey(Graph)
     mod = models.ForeignKey(DevModel)
     type = models.CharField(max_length=1, choices=TYPE_CHOICES)
+    pair = models.ForeignKey('self', null=True, blank=True)
 
     def __str__(self):
         return self.mod.name
