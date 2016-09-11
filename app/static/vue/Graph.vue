@@ -3,7 +3,9 @@
   .ui.padded.grid
     .four.column.row
       .left.floated.column
-        device(:model="conf.idf[0]")
+        device(
+          v-for="dev in conf.idf"
+          v-bind:model="dev")
       .three.wide.column
         .ui.tiny.middle.aligned.progress
           .bar
@@ -11,7 +13,9 @@
         joint
       .three.wide.column
       .right.floated.column
-        device(:model="conf.odf[0]")
+        device(
+          v-for="dev in conf.odf"
+          v-bind:model="dev")
 </template>
 
 <script>
