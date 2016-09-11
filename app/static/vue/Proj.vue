@@ -98,6 +98,14 @@ export default {
     },
     'model-add': function(model){
       this.ctrl_panel.type = 'model_add';
+
+      // add `enable` feild in each feature
+      ['idf', 'odf'].map((df, idx, arr) => {
+          model[df].map((feature, idx, arr) => {
+              feature.enable = false;
+          }, this);
+      }, this);
+
       this.ctrl_panel.data = model;
     },
   },

@@ -20,7 +20,7 @@
             label
         td [[ feature.name | capitalize ]]
 
-    button.ui.button Create
+  button.ui.button(v-on:click="createModel") Commit
 </template>
 
 <script>
