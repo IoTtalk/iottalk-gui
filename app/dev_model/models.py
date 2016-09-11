@@ -56,7 +56,8 @@ class Dev(models.Model):
     '''
     TYPE_CHOICES = (
         ('i', 'input'),
-        ('o', 'output'),)
+        ('o', 'output'),
+    )
 
     graph = models.ForeignKey(Graph)
     mod = models.ForeignKey(DevModel)
@@ -64,6 +65,18 @@ class Dev(models.Model):
 
     def __str__(self):
         return self.mod.name
+
+    @property
+    def json(self):
+        type_dict = dict(self.TYPE_CHOICES)
+
+        return {
+            'pk': self.id,
+            'graph': self.graph.id,
+            'model': self.mod.id,
+            'type': type_dict[self.type],
+            'features': tuple(f.json for f in self.feature_set.all()),
+        }
 
 
 class Category(models.Model):
