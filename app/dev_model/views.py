@@ -74,6 +74,14 @@ class DevSingleView(CsrfExemptMixin, JSONRequestResponseMixin,
                 for feature in odf:
                     device_o.feature_set.add(feature)
 
+            # link them via ``pair``
+            if idf and odf:
+                device_i.pair = device_o
+                device_o.pair = device_i
+
+                device_i.save()
+                device_o.save()
+
         return self.render_json_response({
             'state': 'ok',
             'input':  device_i.json if device_i else None,

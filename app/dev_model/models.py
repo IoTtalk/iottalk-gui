@@ -80,6 +80,7 @@ class Dev(models.Model):
             'model': self.mod.json,
             'type': type_dict[self.type],
             'features': tuple(f.json for f in self.feature_set.all()),
+            'pair': self.pair.pk,
         }
 
 
