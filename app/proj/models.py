@@ -7,6 +7,13 @@ class Project(models.Model):
     def __str__(self):
         return self.name
 
+    @property
+    def json(self):
+        return {
+            'pk': self.pk,
+            'name': self.name,
+        }
+
 
 class Graph(models.Model):
     proj = models.ForeignKey(Project)
