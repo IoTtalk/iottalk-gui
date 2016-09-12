@@ -10,8 +10,11 @@
     .row
       .column
         p Project [[ pid ]]
-        div(v-for="g in graphs")
-          graph(v-bind:conf="g")
+        div(v-for="pk in graphs")
+          graph(
+            v-bind:conf="ref.graphs[pk]"
+            v-bind:ref="ref"
+          )
       .column#ctrl-panel
         model-conf(
           v-if="ctrl_panel.type === 'model'"
@@ -21,6 +24,7 @@
           v-if="ctrl_panel.type === 'model_add'"
           v-bind:model="ctrl_panel.data"
           v-bind:graphs="graphs"
+          v-bind:ref="ref"
         )
 
 </template>
@@ -40,6 +44,7 @@ export default {
         type: null,
         data: null,
       },
+      ref: {},
     }
   },
   computed: {
@@ -48,40 +53,23 @@ export default {
 
       this.$http.get(`/proj/${id}/`).then(
         res => {
-          const data = res.json();
-
-          const bindModel = (graph) => {
-            /*
-              graph: {
-                'idf': [{
-                  'name': '...',
-                  'features': ['...'],
-                  'models': {...},
-                }],
-                'odf': ...
-              }
-             */
-            const _graph = Object.assign({}, graph);  // copy
-            const {idf, odf} = _graph;
-            const models = data.models;
-            
-            const link = (obj) => {
-              if (models[obj.name] === undefined)
-                return;
-              obj.model = models[obj.name];
-            };
-
-            idf.map(link);
-            odf.map(link);
-
-            return _graph;
-          };
-
-          this.graphs = data.graphs.map(bindModel);
+          return res.json();
         },
         res => {  // error
           console.log('error: ' + res.json());
-        })
+        }
+      ).then(
+        data => {
+          if (data === undefined)
+            return;
+          else if (data.state === 'error') {
+            console.log(data);
+          }
+
+          this.graphs = data.graphs;
+          this.ref = data.ref;
+        }
+      );
       return id;
     },
   },

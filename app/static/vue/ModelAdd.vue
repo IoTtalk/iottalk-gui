@@ -30,24 +30,31 @@ export default {
       dfs: [
         {key: 'idf', name: 'Input Device Feature'},
         {key: 'odf', name: 'Output Device Feature'},
-      ]
+      ],
     }
   },
   props: {
     model: Object,
     graphs: Array,
+    ref: Object,
+  },
+  computed: {
+    last_graph() {
+      const idx = this.graphs[this.graphs.length - 1];
+      return this.ref.graphs[idx];
+    }
   },
   methods: {
     createModel() {
+      console.log(la)
       const payload = {
         model: this.model.pk,
         idf: this._getEnabledFeatures(this.model.idf),
         odf: this._getEnabledFeatures(this.model.odf),
 
         // append devices to the last graph
-        graph: this.graphs[this.graphs.length - 1].pk,
+        graph: this.last_graph.pk,
       };
-      console.log(payload);
       this.$http.put('/mod/obj/', payload).then(
         (response) => {
           return response.json();
@@ -59,17 +66,22 @@ export default {
         (data) => {
           if (data === undefined)
             return;
+          else if (data.state === 'error') {
+            console.log(data);
+          }
 
           const input = data.input;
           const output = data.output;
-          const graph = this.graphs[this.graphs.length - 1];
+          const graph = this.last_graph;
 
           // append devices to the last graph
           if (input !== null) {
-            graph.idf.push(input);
+            this.ref.models[input.pk] = input;
+            graph.input.push(input.pk);
           }
           if (output !== null) {
-            graph.odf.push(output);
+            this.ref.models[output.pk] = output;
+            graph.output.push(output.pk);
           }
         }
       );

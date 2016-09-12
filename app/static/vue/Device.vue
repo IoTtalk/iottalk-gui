@@ -9,7 +9,7 @@
     .ui.feature.center.aligned.segment.feature-cell
       .ui.segment(
         v-for="feature in model.features"
-      ) [[ feature | capitalize ]]
+      ) [[ feature.name | capitalize ]]
 </template>
 
 <script>
