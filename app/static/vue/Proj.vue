@@ -19,6 +19,7 @@
         model-conf(
           v-if="ctrl_panel.type === 'model'"
           v-bind:model="ctrl_panel.data"
+          v-bind:ref="ref"
         )
         model-add(
           v-if="ctrl_panel.type === 'model_add'"
@@ -89,14 +90,6 @@ export default {
     },
     'model-add': function(model){
       this.ctrl_panel.type = 'model_add';
-
-      // add `enable` feild in each feature
-      ['idf', 'odf'].map((df, idx, arr) => {
-          model[df].map((feature, idx, arr) => {
-              feature.enable = false;
-          }, this);
-      }, this);
-
       this.ctrl_panel.data = model;
     },
   },

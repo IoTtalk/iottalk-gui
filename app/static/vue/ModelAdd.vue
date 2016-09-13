@@ -3,7 +3,7 @@
 
   table.ui.basic.celled.definition.table(
     v-for="df in dfs"
-    v-if="!!model[df.key]"
+    v-if="model[df.key].length != 0"
   )
     thead
       tr

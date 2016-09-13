@@ -24,7 +24,7 @@ export default {
   },
   methods: {
       modelSelect() {
-        this.$dispatch('modelSelect', this.model.model);
+        this.$dispatch('modelSelect', this.model);
       },
   },
 }
