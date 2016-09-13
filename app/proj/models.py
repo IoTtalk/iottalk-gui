@@ -25,6 +25,6 @@ class Graph(models.Model):
     def json(self):
         return {
             'pk': self.pk,
-            'input': tuple(dev.pk for dev in self.dev_set.filter(type='o')),
-            'output': tuple(dev.pk for dev in self.dev_set.filter(type='i')),
+            'input': tuple(dev.pk for dev in self.dev_set.filter(type='i')),
+            'output': tuple(dev.pk for dev in self.dev_set.filter(type='o')),
         }

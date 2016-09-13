@@ -73,6 +73,7 @@ class Dev(models.Model):
     @property
     def json(self):
         type_dict = dict(self.TYPE_CHOICES)
+        feature_set = tuple(map(self.serialize_feature, self.full_feature_set))
 
         return {
             'pk': self.id,
@@ -80,9 +81,33 @@ class Dev(models.Model):
             'graph': self.graph.id,
             'model': self.mod.json,
             'type': type_dict[self.type],
-            'features': tuple(f.json for f in self.feature_set.all()),
+            'features': feature_set,
             'pair': self.pair.pk if self.pair else None,
         }
+
+    @property
+    def full_feature_set(self):
+        '''
+        Get the full feature_set from original `DevModel`
+        '''
+        return self.mod.feature_set.filter(type=self.type)
+
+    def serialize_feature(self, feature):
+        '''
+        Return the serialized json format of ``feature``.
+
+        We will also add a field ``enable``.
+        '''
+        ret = feature.json
+
+        try:
+            feature.dev.get(pk=self.pk)
+        except self.DoesNotExist as err:
+            ret['enable'] = False
+        else:
+            ret['enable'] = True
+
+        return ret
 
 
 class Category(models.Model):
