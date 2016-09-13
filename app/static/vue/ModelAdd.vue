@@ -46,7 +46,6 @@ export default {
   },
   methods: {
     createModel() {
-      console.log(la)
       const payload = {
         model: this.model.pk,
         idf: this._getEnabledFeatures(this.model.idf),

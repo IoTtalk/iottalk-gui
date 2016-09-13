@@ -45,6 +45,7 @@ export default {
         data: null,
       },
       ref: {},
+      proj: {},
     }
   },
   computed: {
@@ -68,6 +69,7 @@ export default {
 
           this.graphs = data.graphs;
           this.ref = data.ref;
+          this.proj = data.proj;
         }
       );
       return id;

@@ -20,3 +20,11 @@ class Graph(models.Model):
 
     def __str__(self):
         return 'Graph in Proj {}'.format(self.id, self.proj.name)
+
+    @property
+    def json(self):
+        return {
+            'pk': self.pk,
+            'input': tuple(dev.pk for dev in self.dev_set.filter(type='o')),
+            'output': tuple(dev.pk for dev in self.dev_set.filter(type='i')),
+        }

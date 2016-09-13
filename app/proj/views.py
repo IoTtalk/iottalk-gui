@@ -1,45 +1,34 @@
+from itertools import chain
+
 from django.shortcuts import render
 from django.views.generic import DetailView
 
 from braces.views import JSONResponseMixin
 
 from dev_model.models import Dev
+from proj.models import Project
 
 
 class ProjDetailView(JSONResponseMixin, DetailView):
-    # TBD:
-    # model = Project
+    model = Project
 
-    def get(self, request, pid):
+    def get(self, request, pk):
         '''
         :param pid: project id
         '''
-        # TBD: remove mock data
-
-        alpha_cat_i = Dev.objects.get(pk=1)
-        alpha_cat_o = Dev.objects.get(pk=10)
-        beta_cat = Dev.objects.get(pk=8)
-        mor_sensor = Dev.objects.get(pk=9)
+        proj = self.get_object()
+        graph_set = proj.graph_set.all()
+        dev_set = chain(*(graph.dev_set.all() for graph in graph_set))
 
         context = {
-            'graphs': [1, 2],
-            'pid': pid,
+            'graphs': tuple(g.pk for g in graph_set),
+            'proj': proj.json,
             'ref' :{
                 'models': {  # actually it's decive models instance
-                    dev.pk: dev.json
-                    for dev in (alpha_cat_i, alpha_cat_o, beta_cat, mor_sensor)
+                    dev.pk: dev.json for dev in dev_set
                 },
                 'graphs': {
-                    1: {
-                        'pk': 1,
-                        'input': [1],
-                        'output': [8],
-                    },
-                    2: {
-                        'pk': 2,
-                        'input': [9],
-                        'output': [10],
-                    }
+                    graph.pk: graph.json for graph in graph_set
                 },
             }
         }

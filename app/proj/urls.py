@@ -4,5 +4,5 @@ from proj.views import ProjDetailView
 
 
 urlpatterns = (
-    url(r'^(?P<pid>[\d]+)/', ProjDetailView.as_view(), name='detail'),
+    url(r'^(?P<pk>[\d]+)/', ProjDetailView.as_view(), name='detail'),
 )
