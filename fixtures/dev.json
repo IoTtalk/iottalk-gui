@@ -1,0 +1,221 @@
+[
+  {
+    "model": "proj.project",
+    "pk": 1,
+    "fields": {
+      "name": "myproj"
+    }
+  },
+  {
+    "model": "proj.graph",
+    "pk": 1,
+    "fields": {
+      "proj": 1
+    }
+  },
+  {
+    "model": "proj.graph",
+    "pk": 2,
+    "fields": {
+      "proj": 1
+    }
+  },
+  {
+    "model": "dev_model.devmodel",
+    "pk": 1,
+    "fields": {
+      "name": "AlphaCat",
+      "desc": "Alpha Cat"
+    }
+  },
+  {
+    "model": "dev_model.devmodel",
+    "pk": 2,
+    "fields": {
+      "name": "BetaCat",
+      "desc": null
+    }
+  },
+  {
+    "model": "dev_model.devmodel",
+    "pk": 3,
+    "fields": {
+      "name": "MorSensor",
+      "desc": null
+    }
+  },
+  {
+    "model": "dev_model.dev",
+    "pk": 1,
+    "fields": {
+      "graph": 1,
+      "mod": 1,
+      "type": "i",
+      "pair": null
+    }
+  },
+  {
+    "model": "dev_model.dev",
+    "pk": 8,
+    "fields": {
+      "graph": 1,
+      "mod": 2,
+      "type": "o",
+      "pair": null
+    }
+  },
+  {
+    "model": "dev_model.dev",
+    "pk": 9,
+    "fields": {
+      "graph": 2,
+      "mod": 3,
+      "type": "i",
+      "pair": null
+    }
+  },
+  {
+    "model": "dev_model.dev",
+    "pk": 10,
+    "fields": {
+      "graph": 2,
+      "mod": 1,
+      "type": "o",
+      "pair": 1
+    }
+  },
+  {
+    "model": "dev_model.dev",
+    "pk": 17,
+    "fields": {
+      "graph": 2,
+      "mod": 3,
+      "type": "i",
+      "pair": null
+    }
+  },
+  {
+    "model": "dev_model.category",
+    "pk": 1,
+    "fields": {
+      "name": "sight"
+    }
+  },
+  {
+    "model": "dev_model.category",
+    "pk": 2,
+    "fields": {
+      "name": "hearing"
+    }
+  },
+  {
+    "model": "dev_model.category",
+    "pk": 3,
+    "fields": {
+      "name": "feeling"
+    }
+  },
+  {
+    "model": "dev_model.category",
+    "pk": 4,
+    "fields": {
+      "name": "motion"
+    }
+  },
+  {
+    "model": "dev_model.category",
+    "pk": 5,
+    "fields": {
+      "name": "other"
+    }
+  },
+  {
+    "model": "dev_model.feature",
+    "pk": 1,
+    "fields": {
+      "name": "meow",
+      "type": "o",
+      "cate": 2,
+      "desc": "Meow",
+      "func": null,
+      "mod": [
+        1,
+        2
+      ],
+      "dev": [
+        1,
+        8,
+        10
+      ]
+    }
+  },
+  {
+    "model": "dev_model.feature",
+    "pk": 2,
+    "fields": {
+      "name": "acce",
+      "type": "i",
+      "cate": 4,
+      "desc": "Acce",
+      "func": null,
+      "mod": [
+        3
+      ],
+      "dev": [
+        9
+      ]
+    }
+  },
+  {
+    "model": "dev_model.feature",
+    "pk": 3,
+    "fields": {
+      "name": "temp",
+      "type": "i",
+      "cate": 3,
+      "desc": "Temp",
+      "func": null,
+      "mod": [
+        3
+      ],
+      "dev": [
+        17
+      ]
+    }
+  },
+  {
+    "model": "dev_model.feature",
+    "pk": 4,
+    "fields": {
+      "name": "color",
+      "type": "i",
+      "cate": 1,
+      "desc": "",
+      "func": null,
+      "mod": [
+        3
+      ],
+      "dev": [
+        9
+      ]
+    }
+  },
+  {
+    "model": "dev_model.feature",
+    "pk": 5,
+    "fields": {
+      "name": "meow",
+      "type": "i",
+      "cate": 2,
+      "desc": "",
+      "func": null,
+      "mod": [
+        1,
+        2
+      ],
+      "dev": [
+        1
+      ]
+    }
+  }
+]
