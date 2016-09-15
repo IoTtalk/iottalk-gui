@@ -83,6 +83,10 @@ export default {
             graph.output.push(output.pk);
           }
 
+          this.$dispatch('msg-show', {
+            header: `Model ${this.model.name} created successfully.`,
+            level: 'success',
+          });
           this.$dispatch('model-add-fin');  // finish
         }
       );
