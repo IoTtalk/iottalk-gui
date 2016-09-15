@@ -87,7 +87,7 @@ export default {
             header: `Model ${this.model.name} created.`,
             level: 'success',
           });
-          this.$dispatch('model-add-fin');  // finish
+          this.$dispatch('ctrl-panel-fin');  // finish
         }
       );
     },

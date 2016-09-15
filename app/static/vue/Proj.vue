@@ -77,10 +77,6 @@ export default {
     },
   },
   methods: {
-    cleanCtrlPanel() {
-      this.ctrl_panel.type = null;
-      this.ctrl_panel.data = null;
-    },
   },
   components: {
     Graph,
@@ -98,11 +94,9 @@ export default {
       this.ctrl_panel.type = 'model_add';
       this.ctrl_panel.data = model;
     },
-    'model-add-fin': function() {
-      return this.cleanCtrlPanel();
-    },
-    'model-conf-fin': function() {
-      return this.cleanCtrlPanel();
+    'ctrl-panel-fin': function() {
+      this.ctrl_panel.type = null;
+      this.ctrl_panel.data = null;
     },
   },
 }

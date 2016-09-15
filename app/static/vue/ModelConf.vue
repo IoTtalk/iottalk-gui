@@ -94,7 +94,7 @@ export default {
             header: `Device ${this.model.name} saved.`,
             level: 'success',
           });
-          this.$dispatch('model-conf-fin');  // finish
+          this.$dispatch('ctrl-panel-fin');  // finish
         }
       );
     },
