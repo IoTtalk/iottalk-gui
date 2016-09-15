@@ -88,9 +88,13 @@ export default {
       this.ctrl_panel.type = 'model';
       this.ctrl_panel.data = model;
     },
-    'model-add': function(model){
+    'model-add': function(model) {
       this.ctrl_panel.type = 'model_add';
       this.ctrl_panel.data = model;
+    },
+    'model-add-fin': function() {
+      this.ctrl_panel.type = null;
+      this.ctrl_panel.data = null;
     },
   },
 }

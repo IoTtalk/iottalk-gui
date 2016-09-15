@@ -82,6 +82,8 @@ export default {
             this.ref.models[output.pk] = output;
             graph.output.push(output.pk);
           }
+
+          this.$dispatch('model-add-fin');  // finish
         }
       );
     },
