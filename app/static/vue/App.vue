@@ -1,15 +1,18 @@
 <template lang="jade">
   main-nav
   router-view
+  msg-banner(v-ref:msg)
 </template>
 
 <script>
 import MainNav from './MainNav.vue'
+import MsgBanner from './MsgBanner.vue'
 
 export default {
   replace: false,
   components: {
     MainNav,
+    MsgBanner,
   },
   methods: {
   },
@@ -17,6 +20,9 @@ export default {
     'model-add': function(model) {
       this.$broadcast('model-add', model);
     },
+    'msg-show': function(msg) {
+      this.$refs.msg.$emit('show-msg', msg);
+    }
   },
 }
 </script>
