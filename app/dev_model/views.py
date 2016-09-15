@@ -113,11 +113,67 @@ class DevSingleView(CsrfExemptMixin, JSONRequestResponseMixin,
         }
 
     @staticmethod
-    def get_or_404(model, **query):
+    def get_or_404(model, getter=None, **query):
         '''
         :return: the object or HttpResponseNotFound
         '''
+        getter = model.objects.get if getter is None else getter
+
         try:
-            return model.objects.get(**query)
+            return getter(**query)
         except model.DoesNotExist as err:
             raise Http404(str(err))
+
+    def post(self, request, pk=None):
+        '''
+        Modified the device instance
+
+        The excepted payload::
+
+            {
+                'features': {
+                    pk: true or false  // ``true`` for enable and vice versa
+                }
+            }
+        '''
+        if pk is None:
+            return self.render_bad_request_response(
+                '`pk` should be specified in url')
+
+        try:
+            dev = self.get_or_404(Dev, pk=pk)
+        except Http404 as err:
+            return self.render_404(str(err))
+
+        try:
+            self.verify_post_schema(self.request_json)
+        except ValueError as err:
+            return self.render_bad_request_response(str(err))
+
+        with atomic():
+            for f_pk, enabled in self.request_json['features'].items():
+                try:
+                    feature = self.get_or_404(Feature, pk=f_pk)
+                except Http404 as err:
+                    return self.render_404(str(err))
+
+                if feature not in dev.full_feature_set:
+                    return self.render_404('Unknown Feature: {}'.format(f_pk))
+
+                if enabled:
+                    dev.feature_set.add(feature)
+                else:
+                    dev.feature_set.remove(feature)
+
+                dev.save()
+
+        return self.render_json_response({
+            'state': 'ok',
+        })
+
+    @staticmethod
+    def verify_post_schema(payload):
+        if tuple(payload.keys()) == ('features',):
+            return
+
+        raise ValueError('Invalid schema')

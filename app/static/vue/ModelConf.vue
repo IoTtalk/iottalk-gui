@@ -59,7 +59,41 @@ export default {
         }
       );
     },
+    _getEnabledFeatures(features) {
+      const ret = {}
+
+      features.map(f => {
+        ret[f.pk] = f.enable;
+      })
+
+      return ret;
+    },
     saveModel() {
+      const dev_id = this.model.pk;
+      const payload = {
+        'features': this._getEnabledFeatures(this.model.features),
+      }
+
+      // console.log(payload);
+      // return;
+
+      this.$http.post(`/mod/obj/${dev_id}/`, payload,
+        res => {
+          return res.json()
+        },
+        res => {  // error
+          console.log(res)
+        }
+      ).then(
+        data => {
+          if (data === undefined)
+            return;
+          if (data.state !== 'ok') {
+            console.log(data);
+            return;
+          }
+        }
+      );
     },
   },
 };
