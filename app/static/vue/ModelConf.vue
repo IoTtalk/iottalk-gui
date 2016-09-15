@@ -74,24 +74,27 @@ export default {
         'features': this._getEnabledFeatures(this.model.features),
       }
 
-      // console.log(payload);
-      // return;
-
-      this.$http.post(`/mod/obj/${dev_id}/`, payload,
+      this.$http.post(`/mod/obj/${dev_id}/`, payload).then(
         res => {
-          return res.json()
+          return res.json();
         },
         res => {  // error
-          console.log(res)
+          console.error(res);
         }
       ).then(
         data => {
           if (data === undefined)
             return;
           if (data.state !== 'ok') {
-            console.log(data);
+            console.error(data);
             return;
           }
+
+          this.$dispatch('msg-show', {
+            header: `Device ${this.model.name} saved.`,
+            level: 'success',
+          });
+          this.$dispatch('model-conf-fin');  // finish
         }
       );
     },

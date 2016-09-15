@@ -84,7 +84,7 @@ export default {
           }
 
           this.$dispatch('msg-show', {
-            header: `Model ${this.model.name} created successfully.`,
+            header: `Model ${this.model.name} created.`,
             level: 'success',
           });
           this.$dispatch('model-add-fin');  // finish

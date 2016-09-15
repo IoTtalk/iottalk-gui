@@ -76,6 +76,12 @@ export default {
       return id;
     },
   },
+  methods: {
+    cleanCtrlPanel() {
+      this.ctrl_panel.type = null;
+      this.ctrl_panel.data = null;
+    },
+  },
   components: {
     Graph,
     LineCanvas,
@@ -93,8 +99,10 @@ export default {
       this.ctrl_panel.data = model;
     },
     'model-add-fin': function() {
-      this.ctrl_panel.type = null;
-      this.ctrl_panel.data = null;
+      return this.cleanCtrlPanel();
+    },
+    'model-conf-fin': function() {
+      return this.cleanCtrlPanel();
     },
   },
 }
