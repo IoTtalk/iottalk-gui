@@ -6,7 +6,7 @@
         device(
           v-for="dev in conf.input"
           v-bind:model="ref.models[dev]"
-          v-bind:class="{'selected': curModel.pk === dev}"
+          v-bind:class="{'selected': curModel && curModel.pk === dev}"
         )
       .three.wide.column
         .ui.tiny.middle.aligned.progress
@@ -18,7 +18,7 @@
         device(
           v-for="dev in conf.output"
           v-bind:model="ref.models[dev]"
-          v-bind:class="{'selected': curModel.pk === dev}"
+          v-bind:class="{'selected': curModel && curModel.pk === dev}"
         )
 </template>
 

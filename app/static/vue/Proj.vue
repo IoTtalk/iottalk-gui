@@ -14,7 +14,7 @@
           graph(
             v-bind:conf="ref.graphs[pk]"
             v-bind:ref="ref"
-            v-bind:cur-model="ctrl_panel.data"
+            v-bind:cur-model="curModel"
           )
       .column#ctrl-panel
         model-conf(
@@ -76,6 +76,11 @@ export default {
       );
       return id;
     },
+    curModel() {
+      if (this.ctrl_panel.type !== 'model')
+        return
+      return this.ctrl_panel.data;
+    }
   },
   methods: {
   },
