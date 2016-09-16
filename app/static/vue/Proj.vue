@@ -48,34 +48,34 @@ export default {
       },
       ref: {},
       proj: {},
+      pid: undefined,
     }
   },
+  ready() {
+    this.pid = this.$route.params.pid;
+
+    this.$http.get(`/proj/${this.pid}/`).then(
+      res => {
+        return res.json();
+      },
+      res => {  // error
+        console.log('error: ' + res.json());
+      }
+    ).then(
+      data => {
+        if (data === undefined)
+          return;
+        else if (data.state === 'error') {
+          console.log(data);
+        }
+
+        this.graphs = data.graphs;
+        this.ref = data.ref;
+        this.proj = data.proj;
+      }
+    );
+  },
   computed: {
-    pid() {
-      const id = this.$route.params.pid;
-
-      this.$http.get(`/proj/${id}/`).then(
-        res => {
-          return res.json();
-        },
-        res => {  // error
-          console.log('error: ' + res.json());
-        }
-      ).then(
-        data => {
-          if (data === undefined)
-            return;
-          else if (data.state === 'error') {
-            console.log(data);
-          }
-
-          this.graphs = data.graphs;
-          this.ref = data.ref;
-          this.proj = data.proj;
-        }
-      );
-      return id;
-    },
     curModel() {
       if (this.ctrl_panel.type !== 'model')
         return
