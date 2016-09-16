@@ -64,6 +64,7 @@ export default {
   border: 0;
   min-height: 40px;
   text-align: center;
+  box-shadow: 0 0 0 #fff;
 }
 .ui.icon.message > .icon {
   font-size: 2em;

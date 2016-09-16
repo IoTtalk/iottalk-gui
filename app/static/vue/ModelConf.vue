@@ -26,6 +26,8 @@
 </template>
 
 <script>
+import arrayRemove from 'jqb-array-remove';
+
 export default {
   data() {
     return {
@@ -41,7 +43,9 @@ export default {
   },
   methods: {
     deleteModel() {
-      this.$http.delete(
+      const dev_id = this.model.pk;
+
+      this.$http.delete(`/mod/obj/${dev_id}/`).then(
         res => {
           return res.json()
         },
@@ -53,9 +57,19 @@ export default {
           if (data === undefined)
             return;
           if (data.state !== 'ok') {
-            console.log(data);
+            console.error(data);
             return;
           }
+
+          const graph = this.ref.graphs[this.model.graph];
+          graph[this.model.type] = arrayRemove(graph[this.model.type], dev_id);
+
+          this.ref.models[dev_id] = undefined;
+          this.$dispatch('msg-show', {
+            header: `Device ${this.model.name} deleted.`,
+            level: 'success',
+          });
+          this.$dispatch('ctrl-panel-fin');
         }
       );
     },

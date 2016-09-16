@@ -26,7 +26,7 @@ class DevModelListView(JSONResponseMixin, ListView):
 class DevSingleView(CsrfExemptMixin, JSONRequestResponseMixin,
                     SingleObjectMixin, View):
     model = Dev
-    require_json = True
+    require_json = False
     error_response_dict = {'state': 'error', 'reason': 'invalid json'}
 
     def put(self, request, pk=None):
@@ -177,3 +177,23 @@ class DevSingleView(CsrfExemptMixin, JSONRequestResponseMixin,
             return
 
         raise ValueError('Invalid schema')
+
+    def delete(self, request, pk=None):
+        '''
+        Remove the device instance
+        '''
+        if pk is None:
+            return self.render_bad_request_response(
+                '`pk` should be specified in url')
+
+        try:
+            dev = self.get_or_404(Dev, pk=pk)
+        except Http404 as err:
+            return self.render_404(str(err))
+
+        with atomic():
+            dev.delete()
+
+        return self.render_json_response({
+            'state': 'ok',
+        })
