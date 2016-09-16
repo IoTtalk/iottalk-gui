@@ -5,7 +5,9 @@
       .left.floated.column
         device(
           v-for="dev in conf.input"
-          v-bind:model="ref.models[dev]")
+          v-bind:model="ref.models[dev]"
+          v-bind:class="{'selected': curModel.pk === dev}"
+        )
       .three.wide.column
         .ui.tiny.middle.aligned.progress
           .bar
@@ -15,7 +17,9 @@
       .right.floated.column
         device(
           v-for="dev in conf.output"
-          v-bind:model="ref.models[dev]")
+          v-bind:model="ref.models[dev]"
+          v-bind:class="{'selected': curModel.pk === dev}"
+        )
 </template>
 
 <script>
@@ -26,6 +30,7 @@ export default {
   props: {
     conf: Object,
     ref: Object,
+    curModel: Object,
   },
   components: {
     Device,

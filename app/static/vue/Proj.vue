@@ -14,6 +14,7 @@
           graph(
             v-bind:conf="ref.graphs[pk]"
             v-bind:ref="ref"
+            v-bind:cur-model="ctrl_panel.data"
           )
       .column#ctrl-panel
         model-conf(
