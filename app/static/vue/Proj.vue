@@ -32,11 +32,13 @@
 </template>
 
 <script>
-import Graph from './Graph.vue'
-import LineCanvas from './LineCanvas.vue'
-import ModelAdd from './ModelAdd.vue'
-import ModelConf from './ModelConf.vue'
-import ProjNav from './ProjNav.vue'
+import mqtt from 'mqtt';
+
+import Graph from './Graph.vue';
+import LineCanvas from './LineCanvas.vue';
+import ModelAdd from './ModelAdd.vue';
+import ModelConf from './ModelConf.vue';
+import ProjNav from './ProjNav.vue';
 
 export default {
   data() {
@@ -49,7 +51,96 @@ export default {
       ref: {},
       proj: {},
       pid: undefined,
+
+      deviceAPI: {
+        vm: this,
+        mqtt: undefined,
+        pubTopic: 'iottalk/api/req/gui/device',
+        subTopic: 'iottalk/api/res/gui/device',
+        
+        willOption() {
+          return {
+            topic: this.pubTopic,
+            payload: JSON.stringify({'op': 'detach'}),
+          }
+        },
+
+        on_connect() {
+          console.log('device api mqtt connected');
+          
+          this.mqtt.subscribe(this.subTopic, {qos: 2}, () => {
+            this.pub({'op': 'attach'});
+          });
+        },
+
+        on_error(error) {
+          console.error(error);
+        },
+
+        on_close() {
+          console.log('device api mqtt disconnted');
+
+          this.pub({'op': 'detach'});
+        },
+
+        on_message(topic, msg, packet) {
+          const payload = JSON.parse(msg);
+          
+          console.log(payload);
+        },
+
+        pub(msg, options) {
+          /* 
+          :param payload: a json object
+
+          :ref:`https://github.com/mqttjs/MQTT.js#mqttclientpublishtopic-message-options-callback`
+          */
+          return this.mqtt.publish(
+            this.pubTopic, 
+            JSON.stringify(msg),
+            options);
+        },
+      },
     }
+  },
+  created() {
+    this.$http.get('/conf/mqtt/').then(
+      res => {
+        return res.json();
+      },
+      res => {  // error
+        console.error(res);
+      }
+    ).then(
+      data => {
+        if (data === undefined)
+          return;
+        
+        const {
+          scheme,
+          host,
+          port
+        } = data;
+
+        const url = `${scheme}://${host}:${port}`;
+        const devWillOption = this.deviceAPI.willOption();
+        const devMQTT = this.deviceAPI.mqtt = mqtt.connect(
+          url, {will: devWillOption});
+
+        devMQTT.on('connect', () => {
+          this.deviceAPI.on_connect();
+        });
+        devMQTT.on('close', () => {
+          this.deviceAPI.on_close();
+        });
+        devMQTT.on('error', (error) => {
+          this.deviceAPI.on_error(error);
+        });
+        devMQTT.on('message', (...args) => {
+          this.deviceAPI.on_message(...args);
+        });
+      }
+    );
   },
   ready() {
     this.pid = this.$route.params.pid;
@@ -59,7 +150,7 @@ export default {
         return res.json();
       },
       res => {  // error
-        console.log('error: ' + res.json());
+        console.error(res);
       }
     ).then(
       data => {
