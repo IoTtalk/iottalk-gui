@@ -5,7 +5,9 @@
         a(v-on:click="modelSelect")
           i.setting.icon
       .ui.segment
-        .ui.header.center.aligned.model-name [[ model.name ]]
+        .ui.header.center.aligned.model-name(
+          v-on:click="daBind"
+        ) [[ model.name ]]
     .ui.feature.center.aligned.segment.feature-cell
       .ui.segment(
         v-for="feature in model.features"
@@ -23,9 +25,12 @@ export default {
     model: Object,
   },
   methods: {
-      modelSelect() {
-        this.$dispatch('modelSelect', this.model);
-      },
+    modelSelect() {
+      this.$dispatch('modelSelect', this.model);
+    },
+    daBind() {
+      this.$dispatch('da-bind', this.model);
+    },
   },
 }
 </script>

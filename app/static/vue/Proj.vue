@@ -28,12 +28,18 @@
           v-bind:graphs="graphs"
           v-bind:ref="ref"
         )
+        da-bind(
+          v-if="ctrl_panel.type === 'da_bind'"
+          v-bind:model="ctrl_panel.data"
+          v-bind:da-list="DeviceAPI.daList"
+        )
 
 </template>
 
 <script>
 import APIService from './APIService';
 
+import DaBind from './DABind.vue';
 import Graph from './Graph.vue';
 import LineCanvas from './LineCanvas.vue';
 import ModelAdd from './ModelAdd.vue';
@@ -113,6 +119,7 @@ export default {
   methods: {
   },
   components: {
+    DaBind,
     Graph,
     LineCanvas,
     ModelAdd,
@@ -131,6 +138,10 @@ export default {
     'ctrl-panel-fin': function() {
       this.ctrl_panel.type = null;
       this.ctrl_panel.data = null;
+    },
+    'da-bind': function(model) {
+      this.ctrl_panel.type = 'da_bind';
+      this.ctrl_panel.data = model;
     },
   },
 }
