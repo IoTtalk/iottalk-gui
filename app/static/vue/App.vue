@@ -1,5 +1,6 @@
 <template lang="jade">
   main-nav
+  vue-progress-bar
   router-view
   msg-banner(v-ref:msg)
 </template>

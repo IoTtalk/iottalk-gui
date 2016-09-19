@@ -88,24 +88,33 @@ export default {
   ready() {
     this.pid = this.$route.params.pid;
 
+    this.$Progress.start();
+
     this.$http.get(`/proj/${this.pid}/`).then(
       res => {
         return res.json();
       },
       res => {  // error
+        this.$Progress.fail();
         console.error(res);
       }
     ).then(
       data => {
-        if (data === undefined)
+        if (data === undefined){
+          this.$Progress.fail();
           return;
+        }
         else if (data.state === 'error') {
           console.log(data);
+          this.$Progress.fail();
+          return;
         }
 
         this.graphs = data.graphs;
         this.ref = data.ref;
         this.proj = data.proj;
+
+        this.$Progress.finish();
       }
     );
   },

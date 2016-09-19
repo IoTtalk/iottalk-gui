@@ -1,4 +1,5 @@
 import Vue from 'vue'
+import VueProgressBar from 'vue-progressbar'
 import VueResource from 'vue-resource'
 import VueRouter from 'vue-router'
 
@@ -9,6 +10,11 @@ import Proj from './vue/Proj.vue'
 Vue.config.delimiters = ['[[', ']]'];
 Vue.config.unsafeDelimiters = ['[[[', ']]]'];
 
+Vue.use(VueProgressBar, {
+  color: 'rgb(143, 255, 199)',
+  failedColor: 'red',
+  height: '2px'
+});
 Vue.use(VueRouter);
 Vue.use(VueResource);
 
