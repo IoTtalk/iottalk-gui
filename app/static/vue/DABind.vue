@@ -1,7 +1,13 @@
 <template lang="jade">
   h2.ui.center.aligned.header Bind to [[ model.name ]]
 
-  [[ candidateDA | json ]]
+  .ui.piled.segments(
+    v-if="candidateDA.length > 0"
+  )
+    .ui.segment(
+      v-for="da in candidateDA"
+    )
+      [[ da.name ]]
 
   button.ui.button
     i.ui.icon.linkify
@@ -34,7 +40,8 @@ export default {
         const da = this.daList[id];
         // TBD: the format of `idf_list` or `odf_list` will be change in 
         // near feature
-        const featSet = new Utils.Set(da[typeMap[type]].map(el => {
+        const featList = da[typeMap[type]] || [];
+        const featSet = new Utils.Set(featList.map(el => {
           return el[0];
         }));  // DA feature set
 
