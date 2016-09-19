@@ -1,17 +1,15 @@
 <template lang="jade">
   h2.ui.center.aligned.header Bind to [[ model.name ]]
 
-  .ui.piled.segments(
+  .ui.vertical.buttons(
     v-if="candidateDA.length > 0"
   )
-    .ui.segment(
+    .ui.fluid.button(
       v-for="da in candidateDA"
     )
-      [[ da.name ]]
-
-  button.ui.button
-    i.ui.icon.linkify
-    | Bind
+      h3.ui.header [[ da.name ]]
+      
+      [[ da.id ]]
 </template>
 
 <script>
@@ -59,4 +57,7 @@ export default {
 </script>
 
 <style scoped>
+div.ui.vertical.buttons {
+  width: 100%;
+}
 </style>

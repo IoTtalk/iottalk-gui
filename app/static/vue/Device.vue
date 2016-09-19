@@ -56,7 +56,7 @@ div.device div.selected{
 }
 
 .ui.device.selected {
-  box-shadow: 0px 4px 15px 0px rgb(76, 182, 200);
+  box-shadow: 0px 4px 15px 0px rgb(168, 219, 228);
 }
 
 .ui.segment.setting-cell {
