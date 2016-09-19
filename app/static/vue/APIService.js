@@ -10,13 +10,19 @@ class BaseAPIService {
   }
 
   connect() {
-    const conn = this.conn = mqtt.connect(this.url, {will: this.willOption});
+    const conn = this.conn = mqtt.connect(this.url, {
+      // keepalive: 10000,
+      will: this.willOption
+    });
 
     conn.on('connect', () => {
       this.on_connect();
     });
     conn.on('close', () => {
       this.on_close();
+    });
+    conn.on('offline', () => {
+      this.on_offline();
     });
     conn.on('error', (...args) => {
       this.on_error(...args);
@@ -39,8 +45,15 @@ class BaseAPIService {
   }
 
 
-  on_close() {
+  on_offline() {
+    console.log('api handler gose offline');
+
     this.pub({'op': 'detach'});
+  }
+
+
+  on_close() {
+    console.log('api handler mqtt connection closed');
   }
 
 
@@ -79,6 +92,7 @@ class DeviceAPI extends BaseAPIService {
 
     this.pubTopic = 'iottalk/api/req/gui/device';
     this.subTopic = 'iottalk/api/res/gui/device';
+    this.daList= undefined;
 
     this.connect();
   }
@@ -95,6 +109,23 @@ class DeviceAPI extends BaseAPIService {
     console.log('device api mqtt disconnted');
 
     super.on_close();
+  }
+
+
+  on_message(topic, msg, packet) {
+    const payload = JSON.parse(msg);
+    
+    console.log('msg', payload);
+
+    if (payload.state !== 'ok') {
+      console.error(payload);
+      return;
+    }
+
+    const opcode = payload.op;
+    if (opcode === 'attach') {
+      this.daList = payload.da_list;
+    }
   }
 }
 
