@@ -6,10 +6,10 @@
   )
     .ui.fluid.button(
       v-for="da in candidateDA"
+      v-on:click="bindDA(da)"
     )
       h3.ui.header [[ da.name ]]
-      
-      [[ da.id ]]
+      div [[ da.id ]]
 </template>
 
 <script>
@@ -52,6 +52,12 @@ export default {
   props: {
     model: Object,
     daList: Object,
+  },
+  methods: {
+    bindDA(da) {
+      this.model.da = da;
+      this.$dispatch('ctrl-panel-fin');
+    },
   },
 }
 </script>

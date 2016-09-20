@@ -83,6 +83,7 @@ class Dev(models.Model):
             'type': type_dict[self.type],
             'features': feature_set,
             'pair': self.pair.pk if self.pair else None,
+            'da': None,  # device application
         }
 
     @property

@@ -7,7 +7,11 @@
       .ui.segment
         .ui.header.center.aligned.model-name(
           v-on:click="daBind"
+          v-bind:class="{'blue': !!model.da}"
         ) [[ model.name ]]
+    .ui.center.aligned.segment.da-id(
+      v-if="model.da"
+    ) [[ model.da.id ]]
     .ui.feature.center.aligned.segment.feature-cell
       .ui.segment(
         v-for="feature in model.features"
@@ -29,7 +33,7 @@ export default {
       this.$dispatch('modelSelect', this.model);
     },
     daBind() {
-      this.$dispatch('da-bind', this.model);
+      this.$dispatch('da-bind-conf', this.model);
     },
   },
 }
@@ -71,5 +75,11 @@ div.device div.selected{
 
 .model-name {
   color: #999;
+}
+
+.da-id {
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
 }
 </style>

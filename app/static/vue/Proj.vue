@@ -153,7 +153,7 @@ export default {
       this.ctrl_panel.type = null;
       this.ctrl_panel.data = null;
     },
-    'da-bind': function(model) {
+    'da-bind-conf': function(model) {
       this.ctrl_panel.type = 'da_bind';
       this.ctrl_panel.data = model;
     },

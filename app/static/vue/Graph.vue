@@ -1,5 +1,4 @@
 <template lang="jade">
-  .content [[ conf | json ]]
   .ui.padded.grid
     .four.column.row
       .left.floated.column
