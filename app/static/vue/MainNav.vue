@@ -36,15 +36,19 @@ export default {
     getModels() {
       this.$http.get('/mod/').then(
         res => {  // on success
-          this.models = res.json();
+          return res.json();
         },
         res => {  // on error
-          console.log('error: ' + res.json());
+          console.error(res);
+        }
+      ).then(
+        data => {
+          this.models = data;
         }
       );
     },
     onModelAdd(model) {
-      this.$dispatch('model-add', model);
+      this.$dispatch('model-add', JSON.parse(JSON.stringify(model)));  // the cloned one
     },
   },
   ready() {

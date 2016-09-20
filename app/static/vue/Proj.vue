@@ -9,7 +9,7 @@
   .ui.two.column.grid
     .row
       .column
-        p Project [[ pid ]]
+        h2.ui.header.center.aligned Project [[ pid ]]
         div(v-for="pk in graphs")
           graph(
             v-bind:conf="ref.graphs[pk]"
