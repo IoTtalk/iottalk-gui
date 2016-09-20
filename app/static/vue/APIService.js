@@ -12,6 +12,9 @@ class APIService {  // CSM API Service, access to the CSM hight privilige api
       subTopic: `iottalk/api/res/gui-${this.id}/device`,
       daList: undefined,
     };
+    this.graphs = {
+      //  pk -> pub
+    };
 
     this.connect();
 
@@ -110,6 +113,19 @@ class APIService {  // CSM API Service, access to the CSM hight privilige api
       topic: `iottalk/api/req/gui-${this.id}`,
       payload: JSON.stringify({'op': 'detach'}),
     };
+  }
+
+
+  attach_graph(id /* graph id */) {
+    const topic = `iottalk/api/res/gui-${this.id}/graph/${id}`;
+
+    this.conn.subscribe(topic, {qos: 2}, () => {
+      const pub = this.graphs[id] = (payload) => {
+        return this.pub(`iottalk/api/req/gui-${this.id}/graph/${id}`, payload);
+      };
+
+      pub({'op': 'attach'});
+    });
   }
 }
 

@@ -114,6 +114,11 @@ export default {
         this.ref = data.ref;
         this.proj = data.proj;
 
+        // attach to graph api services
+        this.graphs.map((g_id) => {
+          this.apiService.attach_graph(g_id);
+        });
+
         this.$Progress.finish();
       }
     );
