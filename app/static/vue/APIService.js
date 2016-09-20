@@ -1,18 +1,31 @@
 import mqtt from 'mqtt';
+import uuid from 'uuid';
 
 
-class BaseAPIService {
+class APIService {  // CSM API Service, access to the CSM hight privilige api
   constructor(url) {
-    this.pubTopic = undefined;
-    this.subTopic = undefined;
-    
+    this.id = uuid.v4();
     this.url = url;
+    this.serviceTopic = `iottalk/api/req/gui-${this.id}`;
+    this.dev = {
+      pubTopic: `iottalk/api/req/gui-${this.id}/device`,
+      subTopic: `iottalk/api/res/gui-${this.id}/device`,
+      daList: undefined,
+    };
+
+    this.connect();
+
+    console.log('client id', this.id);
   }
 
   connect() {
     const conn = this.conn = mqtt.connect(this.url, {
-      // keepalive: 10000,
       will: this.willOption
+    });
+
+    // subscribe to `device` api
+    this.conn.subscribe(this.dev.subTopic, {qos: 2}, () => {
+      this.pub(this.dev.pubTopic, {'op': 'attach'});
     });
 
     conn.on('connect', () => {
@@ -34,9 +47,7 @@ class BaseAPIService {
 
 
   on_connect() {
-    this.conn.subscribe(this.subTopic, {qos: 2}, () => {
-      this.pub({'op': 'attach'});
-    });
+    console.log('iottalk api service connected');
   }
 
 
@@ -48,7 +59,7 @@ class BaseAPIService {
   on_offline() {
     console.log('api handler gose offline');
 
-    this.pub({'op': 'detach'});
+    this.pub(this.serviceTopic, {'op': 'detach'});
   }
 
 
@@ -60,18 +71,35 @@ class BaseAPIService {
   on_message(topic, msg, packet) {
     const payload = JSON.parse(msg);
     
-    console.log(payload);
+    console.log(topic, payload);
+
+    if (payload.state !== 'ok') {
+      console.error(payload);
+      return;
+    }
+
+    if (topic === this.dev.subTopic) {
+      return this.on_message_dev(payload, packet);
+    }
   }
 
 
-  pub(msg, options) {
+  on_message_dev(msg, packet) {
+    const opcode = msg.op;
+    if (opcode === 'attach') {
+      this.dev.daList = msg.da_list;
+    }
+  }
+
+
+  pub(topic, msg, options) {
     /* 
     :param payload: a json object
 
     :ref:`https://github.com/mqttjs/MQTT.js#mqttclientpublishtopic-message-options-callback`
     */
     return this.conn.publish(
-      this.pubTopic, 
+      topic, 
       JSON.stringify(msg),
       options);
   }
@@ -79,57 +107,13 @@ class BaseAPIService {
 
   get willOption() {
     return {
-      topic: this.pubTopic,
+      topic: `iottalk/api/req/gui-${this.id}`,
       payload: JSON.stringify({'op': 'detach'}),
     };
   }
 }
 
 
-class DeviceAPI extends BaseAPIService {
-  constructor(...args) {
-    super(...args);
-
-    this.pubTopic = 'iottalk/api/req/gui/device';
-    this.subTopic = 'iottalk/api/res/gui/device';
-    this.daList= undefined;
-
-    this.connect();
-  }
-
-
-  on_connect() {
-    console.log('device api mqtt connected');
-    
-    super.on_connect();
-  }
-
-
-  on_close() {
-    console.log('device api mqtt disconnted');
-
-    super.on_close();
-  }
-
-
-  on_message(topic, msg, packet) {
-    const payload = JSON.parse(msg);
-    
-    console.log('msg', payload);
-
-    if (payload.state !== 'ok') {
-      console.error(payload);
-      return;
-    }
-
-    const opcode = payload.op;
-    if (opcode === 'attach') {
-      this.daList = payload.da_list;
-    }
-  }
-}
-
-
 export default {
-  DeviceAPI: DeviceAPI,
+  APIService: APIService,  // CSM API Service
 }

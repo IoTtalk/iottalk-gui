@@ -31,7 +31,7 @@
         da-bind(
           v-if="ctrl_panel.type === 'da_bind'"
           v-bind:model="ctrl_panel.data"
-          v-bind:da-list="DeviceAPI.daList"
+          v-bind:da-list="apiService.dev.daList"
         )
 
 </template>
@@ -81,7 +81,7 @@ export default {
         } = data;
 
         const url = `${scheme}://${host}:${port}`;
-        this.DeviceAPI = new APIService.DeviceAPI(url);
+        this.apiService = new APIService.APIService(url);
       }
     );
   },
