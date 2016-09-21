@@ -16,6 +16,7 @@
       .ui.segment(
         v-for="feature in model.features"
         v-if="feature.enable"
+        v-on:click="featureMatch(model, feature.name)"
       ) [[ feature.name | capitalize ]]
 </template>
 
@@ -23,7 +24,7 @@
 export default {
   data() {
     return {
-    }      
+    }
   },
   props: {
     model: Object,
@@ -34,6 +35,12 @@ export default {
     },
     daBind() {
       this.$dispatch('da-bind-conf', this.model);
+    },
+    featureMatch(model, fname /* feature name */) {
+      /* User clicked the feature in order to draw the connection between
+       * features.
+       */
+      this.$dispatch('feature-match', model, fname);
     },
   },
 }

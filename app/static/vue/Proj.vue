@@ -57,8 +57,17 @@ export default {
       ref: {},
       proj: {},
       pid: undefined,
-
-      DeviceAPI: undefined,
+      featureMatch: {
+        graph: null,  // graph id
+        input: {
+          da: null,  // device application id
+          feature: null,  // feature name
+        },
+        output: {
+          da: null,
+          feature: null,
+        },
+      },
     }
   },
   created() {
@@ -73,7 +82,7 @@ export default {
       data => {
         if (data === undefined)
           return;
-        
+
         const {
           scheme,
           host,
@@ -156,6 +165,47 @@ export default {
     'da-bind-conf': function(model) {
       this.ctrl_panel.type = 'da_bind';
       this.ctrl_panel.data = model;
+    },
+    'feature-match': function(model, fname /* feature name */) {
+      if (!model.da)
+        return;
+
+      const slots = this.featureMatch;
+      const slot = slots[model.type];
+
+      slot.da = model.da.id;
+      slot.feature = fname;
+
+      if (model.type === 'input')
+        this.featureMatch.graph = model.graph;
+
+      // check both of `input` and `output` slots
+      // if both ared filled, send the `add_link` request to graph api,
+      // then empty this slots.
+      if (!this.featureMatch.input.da || !this.featureMatch.output.da)
+        return;
+
+      const pub = this.apiService.graphs[this.featureMatch.graph];
+      const payload_i = {
+        'op': 'add_link',
+        'da_id': slots.input.da,
+        'idf': slots.input.feature,
+      };
+      const payload_o = {
+        'op': 'add_link',
+        'da_id': slots.output.da,
+        'odf': slots.output.feature,
+      };
+
+      pub(payload_i);
+      pub(payload_o);
+
+      // clean up
+      slots.graphs = null;
+      slots.input.da = null;
+      slots.input.feature = null;
+      slots.output.da = null;
+      slots.output.feature = null;
     },
   },
 }
