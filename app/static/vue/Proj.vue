@@ -15,6 +15,7 @@
             v-bind:conf="ref.graphs[pk]"
             v-bind:ref="ref"
             v-bind:cur-model="curModel"
+            v-bind:feature-match="featureMatch"
           )
       .column#ctrl-panel
         model-conf(
@@ -34,6 +35,7 @@
           v-bind:da-list="apiService.dev.daList"
         )
 
+  line-svg
 </template>
 
 <script>
@@ -41,7 +43,7 @@ import APIService from './APIService';
 
 import DaBind from './DABind.vue';
 import Graph from './Graph.vue';
-import LineCanvas from './LineCanvas.vue';
+import LineSVG from './LineSVG.vue';
 import ModelAdd from './ModelAdd.vue';
 import ModelConf from './ModelConf.vue';
 import ProjNav from './ProjNav.vue';
@@ -70,9 +72,14 @@ export default {
       },
     }
   },
-  created() {
+  ready() {
+    this.pid = this.$route.params.pid;
+
+    this.$Progress.start();
+
     this.$http.get('/conf/mqtt/').then(
       res => {
+        this.$Progress.increase(10);
         return res.json();
       },
       res => {  // error
@@ -91,16 +98,19 @@ export default {
 
         const url = `${scheme}://${host}:${port}`;
         this.apiService = new APIService.APIService(url);
+
+        return new Promise((resolve, reject) => {
+          resolve(this.apiService);
+        });
       }
-    );
-  },
-  ready() {
-    this.pid = this.$route.params.pid;
-
-    this.$Progress.start();
-
-    this.$http.get(`/proj/${this.pid}/`).then(
+    ).then(
+      () => {
+        this.$Progress.increase(10);
+        return this.$http.get(`/proj/${this.pid}/`);
+      }
+    ).then(
       res => {
+        this.$Progress.increase(10);
         return res.json();
       },
       res => {  // error
@@ -144,10 +154,10 @@ export default {
   components: {
     DaBind,
     Graph,
-    LineCanvas,
     ModelAdd,
     ModelConf,
     ProjNav,
+    'line-svg': LineSVG,
   },
   events: {
     modelSelect(model) {
