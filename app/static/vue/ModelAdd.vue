@@ -75,11 +75,25 @@ export default {
 
           // append devices to the last graph
           if (input !== null) {
-            this.ref.models[input.pk] = input;
+            /*
+             * Magic mentioned at:
+             * https://vuejs.org/guide/reactivity.html#Change-Detection-Caveats
+             */
+            const obj = {};
+            obj[input.pk] = input;
+            this.ref.models = Object.assign({}, this.ref.models, obj);
+
             graph.input.push(input.pk);
           }
           if (output !== null) {
-            this.ref.models[output.pk] = output;
+            /*
+             * Magic mentioned at:
+             * https://vuejs.org/guide/reactivity.html#Change-Detection-Caveats
+             */
+            const obj = {};
+            obj[output.pk] = output;
+            this.ref.models = Object.assign({}, this.ref.models, obj);
+
             graph.output.push(output.pk);
           }
 
