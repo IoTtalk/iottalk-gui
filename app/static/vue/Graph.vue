@@ -6,10 +6,10 @@
           v-for="dev in conf.input"
           v-bind:model="ref.models[dev]"
           v-bind:class="{'selected': curModel && curModel.pk === dev}"
+          v-bind:feature-match="featureMatch.input"
         )
       .three.wide.column
-        .ui.tiny.middle.aligned.progress
-          .bar
+        // space for progress bar
       .two.wide.middle.aligned.column
         joint
       .three.wide.column
@@ -18,6 +18,7 @@
           v-for="dev in conf.output"
           v-bind:model="ref.models[dev]"
           v-bind:class="{'selected': curModel && curModel.pk === dev}"
+          v-bind:feature-match="featureMatch.output"
         )
 </template>
 
@@ -30,6 +31,7 @@ export default {
     conf: Object,
     ref: Object,
     curModel: Object,
+    featureMatch: Object,
   },
   components: {
     Device,
