@@ -10,7 +10,6 @@ import MainNav from './MainNav.vue'
 import MsgBanner from './MsgBanner.vue'
 
 export default {
-  replace: false,
   components: {
     MainNav,
     MsgBanner,

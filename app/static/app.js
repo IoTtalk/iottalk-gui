@@ -16,18 +16,24 @@ Vue.use(VueProgressBar, {
 Vue.use(VueRouter);
 Vue.use(VueResource);
 
-const router = new VueRouter();
-const app = Vue.extend(App);
-
-router.map({
-  '/': {
+const routes = [
+  {
+    path: '/',
     name: 'home',
     component: Vue.component('home', Home),
   },
-  '/proj/:pid': {
+  {
+    path: '/proj/:pid',
     name: 'proj',
     component: Vue.component('proj', Proj),
-  },
+  }
+]
+
+const router = new VueRouter({
+  routes,
 })
 
-router.start(app, 'body');
+const app = new Vue({
+  el: 'body',
+  render: h => h(App),
+});
