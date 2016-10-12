@@ -7,8 +7,6 @@ import App from './vue/App.vue'
 import Home from './vue/Home.vue'
 import Proj from './vue/Proj.vue'
 
-Vue.config.delimiters = ['[[', ']]'];
-Vue.config.unsafeDelimiters = ['[[[', ']]]'];
 
 Vue.use(VueProgressBar, {
   color: 'rgb(143, 255, 199)',

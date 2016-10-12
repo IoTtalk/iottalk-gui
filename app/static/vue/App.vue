@@ -25,5 +25,6 @@ export default {
       this.$refs.msg.$emit('show-msg', msg);
     }
   },
+  delimiters: ['[[', ']]'],
 }
 </script>
