@@ -1,4 +1,4 @@
-<template lang="jade">
+<template lang="pug">
   svg
     progress-bar
 </template>

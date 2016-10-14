@@ -1,26 +1,27 @@
-<template lang="jade">
-  h2.ui.center.aligned.header Add Device: [[ model.name ]]
+<template lang="pug">
+  div
+    h2.ui.center.aligned.header Add Device: [[ model.name ]]
 
-  table.ui.basic.celled.definition.table(
-    v-for="df in dfs"
-    v-if="model[df.key].length != 0"
-  )
-    thead
-      tr
-        th Enable
-        th [[ df.name ]]
-    tbody
-      tr(v-for="feature in model[df.key]")
-        td.collapsing
-          .ui.fitted.slider.checkbox
-            input(
-              type="checkbox"
-              v-model="feature.enable"
-            )
-            label
-        td [[ feature.name | capitalize ]]
+    table.ui.basic.celled.definition.table(
+      v-for="df in dfs"
+      v-if="model[df.key].length != 0"
+    )
+      thead
+        tr
+          th Enable
+          th [[ df.name ]]
+      tbody
+        tr(v-for="feature in model[df.key]")
+          td.collapsing
+            .ui.fitted.slider.checkbox
+              input(
+                type="checkbox"
+                v-model="feature.enable"
+              )
+              label
+          td [[ feature.name | capitalize ]]
 
-  button.ui.button(v-on:click="createModel") Commit
+    button.ui.button(v-on:click="createModel") Commit
 </template>
 
 <script>

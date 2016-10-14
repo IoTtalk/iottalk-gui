@@ -1,11 +1,11 @@
-<template lang="jade">
+<template lang="pug">
   .ui.padded.grid
     .four.column.row
       .left.floated.column
         device(
           v-for="dev in conf.input"
           v-bind:model="ref.models[dev]"
-          v-bind:class="{'selected': curModel && curModel.pk === dev}"
+          v-bind:class!="{'selected': curModel && curModel.pk === dev}"
           v-bind:feature-match="featureMatch.input"
         )
       .three.wide.column
@@ -17,7 +17,7 @@
         device(
           v-for="dev in conf.output"
           v-bind:model="ref.models[dev]"
-          v-bind:class="{'selected': curModel && curModel.pk === dev}"
+          v-bind:class!="{'selected': curModel && curModel.pk === dev}"
           v-bind:feature-match="featureMatch.output"
         )
 </template>

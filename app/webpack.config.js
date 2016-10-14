@@ -1,3 +1,4 @@
+const path = require('path')
 const webpack = require('webpack')
 
 module.exports = {
@@ -5,9 +6,12 @@ module.exports = {
     app: './static/app.js',
   },
 	output: {
-		path: __dirname,
-		filename: './static/build.js',
+		path: path.resolve(__dirname, './static'),
+		filename: 'build.js',
 	},
+  resolveLoader: {
+    root: path.join(__dirname, 'node_modules'),
+  },
 	module: {
 		loaders: [
 			{
@@ -18,7 +22,14 @@ module.exports = {
 				test: /\.js$/,
 				loader: 'babel',
 				exclude: /node_modules/,
-			}
+			},
+      {
+        test: /\.(png|jpg|gif|svg)$/,
+        loader: 'file',
+        query: {
+          name: '[name].[ext]?[hash]'
+        }
+      },
 		]
   },
   babel: {

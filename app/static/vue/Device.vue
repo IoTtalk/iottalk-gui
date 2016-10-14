@@ -1,4 +1,4 @@
-<template lang="jade">
+<template lang="pug">
   .ui.raised.segments.device
     .ui.horizontal.segments
       .ui.center.aligned.segment.setting-cell
@@ -17,6 +17,7 @@
         v-for="feature in model.features"
         v-if="feature.enable"
         v-on:click="featureMatch(model, feature.name)"
+        v-bind:class!="{selected: featureMatch && feature.name === featureMatch.feature}"
       ) [[ feature.name | capitalize ]]
 </template>
 

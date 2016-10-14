@@ -1,15 +1,16 @@
-<template lang="jade">
-  h2.ui.center.aligned.header Bind to [[ model.name ]]
+<template lang="pug">
+  div
+    h2.ui.center.aligned.header Bind to [[ model.name ]]
 
-  .ui.vertical.buttons(
-    v-if="candidateDA.length > 0"
-  )
-    .ui.fluid.button(
-      v-for="da in candidateDA"
-      v-on:click="bindDA(da)"
+    .ui.vertical.buttons(
+      v-if!="candidateDA.length > 0"
     )
-      h3.ui.header [[ da.name ]]
-      div [[ da.id ]]
+      .ui.fluid.button(
+        v-for="da in candidateDA"
+        v-on:click.native="bindDA(da)"
+      )
+        h3.ui.header [[ da.name ]]
+        div [[ da.id ]]
 </template>
 
 <script>
@@ -36,7 +37,7 @@ export default {
 
       for(const id in this.daList) {
         const da = this.daList[id];
-        // TBD: the format of `idf_list` or `odf_list` will be change in 
+        // TBD: the format of `idf_list` or `odf_list` will be change in
         // near feature
         const featList = da[typeMap[type]] || [];
         const featSet = new Utils.Set(featList.map(el => {

@@ -1,41 +1,40 @@
-<template lang="jade">
-  // proj-nav
+<template lang="pug">
+  div
+    .ui.two.column.divided.grid.ghost
+      .stretched.row
+        .column
+        .column#ghost-ctrl-panel
 
-  .ui.two.column.divided.grid.ghost
-    .stretched.row
-      .column
-      .column#ghost-ctrl-panel
-
-  .ui.two.column.grid
-    .row
-      .column
-        h2.ui.header.center.aligned Project [[ pid ]]
-        div(v-for="pk in graphs")
-          graph(
-            v-bind:conf="ref.graphs[pk]"
+    .ui.two.column.grid
+      .row
+        .column
+          h2.ui.header.center.aligned Project [[ pid ]]
+          div(v-for="pk in graphs")
+            graph(
+              v-bind:conf="ref.graphs[pk]"
+              v-bind:ref="ref"
+              v-bind:cur-model="curModel"
+              v-bind:feature-match="featureMatch"
+            )
+        .column#ctrl-panel
+          model-conf(
+            v-if="ctrl_panel.type === 'model'"
+            v-bind:model="ctrl_panel.data"
             v-bind:ref="ref"
-            v-bind:cur-model="curModel"
-            v-bind:feature-match="featureMatch"
           )
-      .column#ctrl-panel
-        model-conf(
-          v-if="ctrl_panel.type === 'model'"
-          v-bind:model="ctrl_panel.data"
-          v-bind:ref="ref"
-        )
-        model-add(
-          v-if="ctrl_panel.type === 'model_add'"
-          v-bind:model="ctrl_panel.data"
-          v-bind:graphs="graphs"
-          v-bind:ref="ref"
-        )
-        da-bind(
-          v-if="ctrl_panel.type === 'da_bind'"
-          v-bind:model="ctrl_panel.data"
-          v-bind:da-list="apiService.dev.daList"
-        )
+          model-add(
+            v-if="ctrl_panel.type === 'model_add'"
+            v-bind:model="ctrl_panel.data"
+            v-bind:graphs="graphs"
+            v-bind:ref="ref"
+          )
+          da-bind(
+            v-if="ctrl_panel.type === 'da_bind'"
+            v-bind:model="ctrl_panel.data"
+            v-bind:da-list="apiService.dev.daList"
+          )
 
-  line-svg
+    line-svg
 </template>
 
 <script>
@@ -72,7 +71,7 @@ export default {
       },
     }
   },
-  ready() {
+  mounted() {
     this.pid = this.$route.params.pid;
 
     this.$Progress.start();

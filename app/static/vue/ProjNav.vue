@@ -1,4 +1,4 @@
-<template lang="jade">
+<template lang="pug">
   .proj-menu.ui.attached.secondary.menu
     .ui.container
       .item

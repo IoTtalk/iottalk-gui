@@ -1,28 +1,29 @@
-<template lang="jade">
-  h2.ui.center.aligned.header Config: [[ model.name ]]
+<template lang="pug">
+  div
+    h2.ui.center.aligned.header Config: [[ model.name ]]
 
-  table.ui.basic.celled.definition.table
-    thead
-      tr
-        th Enable
-        th [[ type_map[model.type] ]]
-    tbody
-      tr(v-for="feature in model.features")
-        td.collapsing
-          .ui.fitted.slider.checkbox
-            input(
-              type="checkbox"
-              v-model="feature.enable"
-            )
-            label
-        td [[ feature.name | capitalize ]]
+    table.ui.basic.celled.definition.table
+      thead
+        tr
+          th Enable
+          th [[ type_map[model.type] ]]
+      tbody
+        tr(v-for="feature in model.features")
+          td.collapsing
+            .ui.fitted.slider.checkbox
+              input(
+                type="checkbox"
+                v-model="feature.enable"
+              )
+              label
+          td [[ feature.name | capitalize ]]
 
-  button.ui.button(v-on:click="saveModel")
-    i.ui.icon.save
-    | Save
-  button.ui.button(v-on:click="deleteModel")
-    i.ui.icon.trash
-    | Delete
+    button.ui.button(v-on:click="saveModel")
+      i.ui.icon.save
+      | Save
+    button.ui.button(v-on:click="deleteModel")
+      i.ui.icon.trash
+      | Delete
 </template>
 
 <script>

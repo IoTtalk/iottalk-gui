@@ -1,4 +1,4 @@
-<template lang="jade">
+<template lang="pug">
   div#main-nav.ui.red.huge.inverted.attached.menu
     div.ui.container
       div.header.item IoTtalk

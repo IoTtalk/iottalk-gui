@@ -50,6 +50,15 @@ source::
     $ cp -r dist /path/to/app/static
 
 
+Update NPM Dev Packages
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+::
+
+    $ cd app
+    $ npm update --save-dev
+
+
 Production Setup
 ----------------------------------------------------------------------
 
