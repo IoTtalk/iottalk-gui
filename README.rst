@@ -23,7 +23,8 @@ For the static contents, we use NPM's ``package.json``::
 Devlopement Setup
 ----------------------------------------------------------------------
 
-We use ``webpack`` to build our boundled js file.
+We use ``webpack`` to build our boundled js file; and ``Django`` as our
+backend framework.
 
 ::
 
@@ -32,7 +33,8 @@ We use ``webpack`` to build our boundled js file.
     $ npm install -g webpack
     $ webpack  # or webpack --progress --colors --watch
 
-    $ python ./server.py
+    $ python ./manage.py migrate
+    $ python ./manage.py runserver
 
 
 Semantic UI
