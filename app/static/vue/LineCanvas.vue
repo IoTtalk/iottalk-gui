@@ -1,4 +1,4 @@
-<template lang="jade">
+<template lang="pug">
   canvas#line-canvas
 </template>
 
@@ -20,7 +20,7 @@ export default {
       const alpha = _alpha;
 
       ctx.clearRect(0, 0, this.$el.width, this.$el.height);
-      
+
       ctx.beginPath();
       ctx.moveTo(this.startx, this.starty);
       ctx.lineTo(this.x, this.y);
@@ -36,7 +36,7 @@ export default {
       const width = document.body.clientWidth;
       const height = document.body.clientHeight;
       const canvas = this.$el;
-      
+
       canvas.width = width;
       canvas.height = height;
 
@@ -50,7 +50,7 @@ export default {
   events: {
     'feature-dragend': function(){
       const self = this;
-      
+
       function fadeOut(_alpha) {
         const alpha = _alpha - 0.1;
 

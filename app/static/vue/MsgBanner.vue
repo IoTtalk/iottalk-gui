@@ -1,4 +1,4 @@
-<template lang="jade">
+<template lang="pug">
   .ui.message.icon(
     v-if="enabled"
     v-bind:class="[level]"

@@ -1,4 +1,4 @@
-<template lang="jade">
+<template lang="pug">
   div.ui.container
     div.ui.raise.segment
       a(href="#"

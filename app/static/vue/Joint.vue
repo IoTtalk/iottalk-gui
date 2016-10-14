@@ -1,4 +1,4 @@
-<template lang="jade">
+<template lang="pug">
   div.joint
     div.ui.circular.massive.icon.button
       i.code.icon
