@@ -1,8 +1,9 @@
-<template lang="jade">
-  main-nav
-  vue-progress-bar
-  router-view
-  msg-banner(v-ref:msg)
+<template lang="pug">
+  div
+    main-nav
+    vue-progress-bar
+    router-view
+    msg-banner(ref="msg")
 </template>
 
 <script>
