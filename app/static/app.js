@@ -31,9 +31,11 @@ const routes = [
 
 const router = new VueRouter({
   routes,
+  linkActiveClass: 'active',
 })
 
 const app = new Vue({
   el: 'body',
+  router,
   render: h => h(App),
 });
