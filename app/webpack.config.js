@@ -12,6 +12,14 @@ module.exports = {
   resolveLoader: {
     root: path.join(__dirname, 'node_modules'),
   },
+  resolve: {
+    extensions: ['', '.js', '.vue'],
+    fallback: [path.join(__dirname, 'node_modules')],
+    alias: {
+      animate: path.resolve(__dirname, 'node_modules/animate.css/animate.min.css'),
+      semantic: path.resolve(__dirname, 'static/semantic/semantic.min.css')
+    }
+  },
 	module: {
 		loaders: [
 			{
@@ -24,11 +32,12 @@ module.exports = {
 				exclude: /node_modules/,
 			},
       {
-        test: /\.(png|jpg|gif|svg)$/,
-        loader: 'file',
-        query: {
-          name: '[name].[ext]?[hash]'
-        }
+        test: /\.css$/,
+        loader: "style-loader!css-loader"
+      },
+      {
+        test: /\.(png|jpg|gif|woff|woff2|eot|ttf|svg)$/,
+        loader: 'url-loader',
       },
 		]
   },
@@ -36,12 +45,4 @@ module.exports = {
     presets: ['es2015'],
     plugins: ['transform-runtime'],
   },
-  plugins: [
-    new webpack.ProvidePlugin({
-      $: "jquery",
-      jQuery: "jquery",
-      "window.jQuery": "jquery",
-      semantic: "./static/semantic/semantic.min.js",
-    }),
-  ]
 }

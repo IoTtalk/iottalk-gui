@@ -3,6 +3,9 @@ import VueProgressBar from 'vue-progressbar'
 import VueResource from 'vue-resource'
 import VueRouter from 'vue-router'
 
+import 'animate'  // animate.css
+import 'semantic'  // semantic-ui
+
 import App from './vue/App.vue'
 import Home from './vue/Home.vue'
 import Proj from './vue/Proj.vue'
