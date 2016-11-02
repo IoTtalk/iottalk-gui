@@ -7,7 +7,7 @@
       )
         i.home.icon
         | Home
-      .ui.pointing.dropdown.link.item
+      .ui.simple.dropdown.item
         i.cube.icon
         | Model
         i.dropdown.icon
@@ -15,7 +15,7 @@
           .item(
             v-for="model in models"
             v-on:click="onModelAdd(model)"
-          ) [[ model.name ]]
+          ) {{ model.name }}
       router-link.item(
         v-bind:to="{ path: '/setting' }"
       )
@@ -24,8 +24,6 @@
 </template>
 
 <script>
-import semantic from "../../static/semantic/semantic.min.js";
-
 export default {
   name: 'MainNav',
   data() {
@@ -52,13 +50,8 @@ export default {
       this.$dispatch('model-add', JSON.parse(JSON.stringify(model)));  // the cloned one
     },
   },
-  ready() {
+  mounted() {
     this.getModels();
-    $('.ui.dropdown').dropdown({
-      on: 'hover',
-      transition: 'drop',
-      action: 'hide',
-    });
   },
 }
 </script>
