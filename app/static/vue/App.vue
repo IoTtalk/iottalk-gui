@@ -11,6 +11,7 @@ import MainNav from './MainNav.vue'
 import MsgBanner from './MsgBanner.vue'
 
 export default {
+  name: 'App',
   components: {
     MainNav,
     MsgBanner,
@@ -25,6 +26,5 @@ export default {
       this.$refs.msg.$emit('show-msg', msg);
     }
   },
-  delimiters: ['[[', ']]'],
 }
 </script>

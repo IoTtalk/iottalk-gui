@@ -2,12 +2,12 @@
   div#main-nav.ui.red.huge.inverted.attached.menu
     div.ui.container
       div.header.item IoTtalk
-      a.item(
-        v-link="{name: 'home', activeClass: 'active', exact: true}"
+      router-link.item(
+        v-bind:to="{ name: 'home' }"
       )
         i.home.icon
         | Home
-      .ui.pointing.dropdown.link.item
+      .ui.simple.dropdown.item
         i.cube.icon
         | Model
         i.dropdown.icon
@@ -15,18 +15,17 @@
           .item(
             v-for="model in models"
             v-on:click="onModelAdd(model)"
-          ) [[ model.name ]]
-      a.item(
-        v-link="{path: '/setting', activeClass: 'active'}"
+          ) {{ model.name }}
+      router-link.item(
+        v-bind:to="{ path: '/setting' }"
       )
         i.setting.icon
         | Setting
 </template>
 
 <script>
-import semantic from "../../static/semantic/semantic.min.js";
-
 export default {
+  name: 'MainNav',
   data() {
     return {
       models: [],
@@ -51,13 +50,8 @@ export default {
       this.$dispatch('model-add', JSON.parse(JSON.stringify(model)));  // the cloned one
     },
   },
-  ready() {
+  mounted() {
     this.getModels();
-    $('.ui.dropdown').dropdown({
-      on: 'hover',
-      transition: 'drop',
-      action: 'hide',
-    });
   },
 }
 </script>
