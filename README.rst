@@ -10,7 +10,7 @@ Install Dependencies
 ----------------------------------------------------------------------
 
 We have a file ``requirements.txt`` for denoting the backend dependencies.
-We use ``tonado`` as our webapp framework and server::
+We use ``Django`` as our webapp framework::
 
     $ pip install -r ./requirements.txt
 
@@ -31,7 +31,7 @@ backend framework.
     $ cd app
 
     $ npm install -g webpack
-    $ webpack  # or webpack --progress --colors --watch
+    $ webpack  # or npm run dev
 
     $ python ./manage.py migrate
     $ python ./manage.py runserver
