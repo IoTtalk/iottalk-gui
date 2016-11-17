@@ -2,13 +2,13 @@ const path = require('path')
 const webpack = require('webpack')
 
 module.exports = {
-	entry: {
+  entry: {
     app: './static/app.js',
   },
-	output: {
-		path: path.resolve(__dirname, './static'),
-		filename: 'build.js',
-	},
+  output: {
+    path: path.resolve(__dirname, './static'),
+    filename: 'build.js',
+  },
   resolveLoader: {
     root: path.join(__dirname, 'node_modules'),
   },
@@ -20,17 +20,17 @@ module.exports = {
       semantic: path.resolve(__dirname, 'static/semantic/semantic.min.css')
     }
   },
-	module: {
-		loaders: [
-			{
-				test: /\.vue$/,
-				loader: 'vue',
-			},
-			{
-				test: /\.js$/,
-				loader: 'babel',
-				exclude: /node_modules/,
-			},
+  module: {
+    loaders: [
+      {
+        test: /\.vue$/,
+        loader: 'vue',
+      },
+      {
+        test: /\.js$/,
+        loader: 'babel',
+        exclude: /node_modules/,
+      },
       {
         test: /\.css$/,
         loader: "style-loader!css-loader"
@@ -39,7 +39,7 @@ module.exports = {
         test: /\.(png|jpg|gif|woff|woff2|eot|ttf|svg)$/,
         loader: 'url-loader',
       },
-		]
+    ]
   },
   babel: {
     presets: ['es2015'],
